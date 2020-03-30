@@ -7,6 +7,10 @@ def view(r):
     index = here.parent.parent / "index.html"
     with index.open() as f:
         return HttpResponse(f.read())
+def view2(r):
+    index = here.parent.parent / "index.html"
+    with index.open() as f:
+        return HttpResponse(f.read())
 def resume(r):
     index = here.parent.parent / "Resume.html"
     with index.open() as f:
@@ -61,7 +65,7 @@ def svg(r):
         return HttpResponse(f.read(), content_type="image/svg")
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('index.html', view),
+    path('', view),
     path('Resume.html',resume),
     path('Thoughts.html', thoughts),
     path('bootstrap.css', bootstrap),
@@ -73,5 +77,6 @@ urlpatterns = [
     path('jquery.magnific-popup.min.js',jsmag),
     path('jquery-1.11.3.min.js',jsjquery),
     path('font-awesome.min.css',awesome),
-    path('fontawesome-webfont.svg',svg)
+    path('fontawesome-webfont.svg',svg),
+    path('index.html', view2)
 ]
