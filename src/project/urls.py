@@ -55,6 +55,10 @@ def awesome(r):
     index=here.parent.parent / "font-awesome-4.5.0/css/font-awesome.min.css"
     with index.open() as f:
         return HttpResponse(f.read(), content_type="text/css")
+def svg(r):
+    index=here.parent.parent / "font-awesome-4.5.0/fonts/fontawesome-webfont.svg"
+    with index.open() as f:
+        return HttpResponse(f.read(), content_type="image/svg")
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', view),
@@ -68,5 +72,6 @@ urlpatterns = [
     path('hero-slider-main.js',jshero),
     path('jquery.magnific-popup.min.js',jsmag),
     path('jquery-1.11.3.min.js',jsjquery),
-    path('font-awesome.min.css',awesome)
+    path('font-awesome.min.css',awesome),
+    path('fontawesome-webfont.svg',svg)
 ]
