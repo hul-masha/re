@@ -51,7 +51,10 @@ def jsjquery(r):
     index=here.parent.parent / "js/jquery-1.11.3.min.js"
     with index.open() as f:
         return HttpResponse(f.read(),content_type="text/javascript")
-
+def awesome(r):
+    index=here.parent.parent / "font-awesome-4.5.0/css/font-awesome.min.css"
+    with index.open() as f:
+        return HttpResponse(f.read(), content_type="text/css")
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', view),
@@ -64,5 +67,6 @@ urlpatterns = [
     path('bootstrap.min.js', jsbootstrap),
     path('hero-slider-main.js',jshero),
     path('jquery.magnific-popup.min.js',jsmag),
-    path('jquery-1.11.3.min.js',jsjquery)
+    path('jquery-1.11.3.min.js',jsjquery),
+    path('font-awesome.min.css',awesome)
 ]
