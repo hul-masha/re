@@ -35,6 +35,23 @@ def toop(r):
     index=here.parent.parent / "css/tooplate-style.css"
     with index.open() as f:
         return HttpResponse(f.read(), content_type="text/css")
+def jsbootstrap(r):
+    index=here.parent.parent / "js/bootstrap.min.js"
+    with index.open() as f:
+        return HttpResponse(f.read(),content_type="text/javascript")
+def jshero(r):
+    index=here.parent.parent / "js/hero-slider-main.js"
+    with index.open() as f:
+        return HttpResponse(f.read(),content_type="text/javascript")
+def jsmag(r):
+    index=here.parent.parent / "js/jquery.magnific-popup.min.js"
+    with index.open() as f:
+        return HttpResponse(f.read(),content_type="text/javascript")
+def jsjquery(r):
+    index=here.parent.parent / "js/jquery-1.11.3.min.js"
+    with index.open() as f:
+        return HttpResponse(f.read(),content_type="text/javascript")
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', view),
@@ -43,5 +60,9 @@ urlpatterns = [
     path('bootstrap.css', bootstrap),
     path('hero-slider-style.css', hero),
     path('magnific-popup.css', magn),
-    path('tooplate-style.css', toop)
+    path('tooplate-style.css', toop),
+    path('bootstrap.min.js', jsbootstrap),
+    path('hero-slider-main.js',jshero),
+    path('jquery.magnific-popup.min.js',jsmag),
+    path('jquery-1.11.3.min.js',jsjquery)
 ]
