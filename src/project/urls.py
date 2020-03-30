@@ -18,23 +18,23 @@ def thoughts(r):
 def img(rb):
     index=here.parent.parent / "gBAs.jpg"
     with index.open("rb") as f:
-        return  HttpResponse(f.read())
+        return  HttpResponse(f.read(), content_type="image/jpg")
 def bootstrap(r):
     index=here.parent.parent / "css/bootstrap.min.css"
     with index.open() as f:
-        return HttpResponse(f.read())
+        return HttpResponse(f.read(),content_type= "text/css")
 def hero(r):
     index=here.parent.parent / "css/hero-slider-style.css"
     with index.open() as f:
-        return HttpResponse(f.read())
+        return HttpResponse(f.read(), content_type="text/css")
 def magn(r):
     index=here.parent.parent / "css/magnific-popup.css"
     with index.open() as f:
-        return HttpResponse(f.read())
+        return HttpResponse(f.read(), content_type="text/css")
 def toop(r):
     index=here.parent.parent / "css/tooplate-style.css"
     with index.open() as f:
-        return HttpResponse(f.read())
+        return HttpResponse(f.read(), content_type="text/css")
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', view),
