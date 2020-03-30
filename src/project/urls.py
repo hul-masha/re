@@ -61,7 +61,7 @@ def svg(r):
         return HttpResponse(f.read(), content_type="image/svg")
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', view),
+    path('index.html', view),
     path('Resume.html',resume),
     path('Thoughts.html', thoughts),
     path('bootstrap.css', bootstrap),
