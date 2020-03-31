@@ -56,27 +56,58 @@ def jsjquery(r):
     with index.open() as f:
         return HttpResponse(f.read(),content_type="text/javascript")
 def awesome(r):
-    index=here.parent.parent / "font-awesome-4.5.0/css/font-awesome.min.css"
+    index=here.parent.parent / "css/font-awesome.min.css"
     with index.open() as f:
         return HttpResponse(f.read(), content_type="text/css")
+def woff2(r):
+    index=here.parent.parent / "fonts/fontawesome-webfont.woff2"
+    with index.open("rb") as f:
+        return HttpResponse(f.read(),content_type="font/woff2")
+def ttf(r):
+    index=here.parent.parent / "fonts/fontawesome-webfont.ttf"
+    with index.open("rb") as f:
+        return HttpResponse(f.read(), content_type="font/ttf")
+def woff(r):
+    index=here.parent.parent / "fonts/fontawesome-webfont.woff"
+    with index.open("rb") as f:
+        return HttpResponse(f.read(),content_type="font/woff")
 def svg(r):
-    index=here.parent.parent / "font-awesome-4.5.0/fonts/fontawesome-webfont.svg"
-    with index.open() as f:
-        return HttpResponse(f.read(), content_type="image/svg")
+    index=here.parent.parent / "fonts/fontawesome-webfont.svg"
+    with index.open("rb") as f:
+        return HttpResponse(f.read(), content_type="image/svg+xml")
+def eot(r):
+    index=here.parent.parent / "fonts/fontawesome-webfont.eot"
+    with index.open("rb") as f:
+        return HttpResponse(f.read(), content_type="application/vnd.ms-fontobject")
+def otf(r):
+    index=here.parent.parent / "fonts/FontAwesome.otf"
+    with index.open("rb") as f:
+        return HttpResponse(f.read(), content_type="font/otf")
+def ico(r):
+    index=here.parent.parent / "favicon.ico"
+    with index.open("rb") as f:
+        return HttpResponse(f.read(),content_type="image/x-icon")
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', view),
     path('Resume.html',resume),
     path('Thoughts.html', thoughts),
-    path('bootstrap.css', bootstrap),
-    path('hero-slider-style.css', hero),
-    path('magnific-popup.css', magn),
-    path('tooplate-style.css', toop),
-    path('bootstrap.min.js', jsbootstrap),
-    path('hero-slider-main.js',jshero),
-    path('jquery.magnific-popup.min.js',jsmag),
-    path('jquery-1.11.3.min.js',jsjquery),
-    path('font-awesome.min.css',awesome),
+    path('css/bootstrap.min.css', bootstrap),
+    path('css/hero-slider-style.css', hero),
+    path('css/magnific-popup.css', magn),
+    path('css/tooplate-style.css', toop),
+    path('gBAs.jpg',img),
+    path('favicon.ico',ico),
+    path('js/bootstrap.min.js', jsbootstrap),
+    path('js/hero-slider-main.js',jshero),
+    path('js/jquery.magnific-popup.min.js',jsmag),
+    path('js/jquery-1.11.3.min.js',jsjquery),
+    path('css/font-awesome.min.css',awesome),
     path('fontawesome-webfont.svg',svg),
+    path('fonts/fontawesome-webfont.woff2',woff2),
+    path('fonts/fontawesome-webfont.woff',woff),
+    path('fonts/fontawesome-webfont.ttf',ttf),
+    path('fonts/fontawesome-webfont.eot',eot),
+    path('fonts/FontAwesome.otf',otf),
     path('index.html', view2)
 ]
