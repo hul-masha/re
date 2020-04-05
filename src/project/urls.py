@@ -1,24 +1,33 @@
 from pathlib import Path
 from django.contrib import admin
 from django.http import HttpResponse
+from django.http import HttpRequest
 from django.urls import path
+from django.conf import  settings
+from django.shortcuts import render
 here = Path(__file__).parent.resolve()
 def static_re(file="Resume.html", type="text/html"):
     index=here.parent.parent / file
     with index.open("rb") as f:
         return HttpResponse(f.read(),content_type=type)
-def view(r):
-    return static_re(file="index.html")
 
+def view(request: HttpRequest) -> HttpResponse:
+    return render(request, "index.html")
+
+#def view(r, f=static_re):
+ #   return f(file="index.html")#так код работает быстрее тут не тратиться время на поиск имени функ при ее вызове
+#но эт все равно копейки (связь с именем установ при синтак дереве поэтому не тратиться время на  ее поиск )
+     #render(r,"index.html")
 def resume(r):
-    return static_re()
+    return render(r,"Resume.html")#static_re()
 
 def thoughts(r):
     #print(r.Get())
-    return static_re("Thoughts.html")
+    return render(r,"Thoughts.html")#static_re("Thoughts.html")
 
 def img(rb):
-    return static_re("gBAs.jpg","image/jpg")
+    return static_re("gBAs.jpg","image/jpg") #render
+    #return render("gBAs.jpg",content_type="image/jpg")
 
 def ico(r):
     return static_re("favicon.ico", "image/x-icon")

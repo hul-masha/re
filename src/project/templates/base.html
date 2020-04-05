@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %} </title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400" type="text/css">
+	<link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
+	<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="css/hero-slider-style.css" type="text/css">
+    <link rel="stylesheet" href="css/magnific-popup.css" type="text/css">
+    <link rel="stylesheet" href="css/tooplate-style.css" type="text/css">
+</head>
+
+<body>
+
+        <div class="cd-hero">
+            <div class="cd-slider-nav">
+                <nav class="navbar navbar-fixed-top">
+                    <div class="tm-navbar-bg">
+{% block header %}
+{% endblock %}
+                    </div>
+                </nav>
+            </div>
+        </div>
+        {% block main %}
+{% endblock %}
+    <footer>
+        <p align="center">
+            <a href="https://m.vk.com/id152533952">VK</a>
+        </p>
+        <p align="center">
+            <a href="mailto:masha.gul15@gmail.com">email</a>
+        </p>
+        <p align="center">(C) Gul Maria 2020</p>
+
+
+    </footer>
+</body>
+</html>
