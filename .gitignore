@@ -14,6 +14,7 @@ Pipfile.lock
 **/ENV/
 **/env.bak/
 **/venv.bak/
+.static/
 
 
 # Byte-compiled / optimized / DLL files

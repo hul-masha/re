@@ -28,7 +28,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    #'whitenoise.middleware.WhiteNoiseMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -91,10 +91,11 @@ USE_L10N = True
 
 USE_TZ = True
 
-STATIC_URL = '/assets/'#'/static/'
+STATIC_URL = '/assets/'#'/static/'  это не папка а ссылка
+#STATIC_URL = '/static/'  путь от которого отсчит путь к статич файлам
 
 STATICFILES_DIRS = [
     PROJECT_DIR / "static",
 ]
 
-STATIC_ROOT = REPO_DIR / ".static"
+STATIC_ROOT = REPO_DIR / ".static" #место где хранится статика
