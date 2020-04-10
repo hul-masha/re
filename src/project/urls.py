@@ -1,75 +1,20 @@
-from pathlib import Path
 from django.contrib import admin
-from django.http import HttpResponse
-from django.http import HttpRequest
-from django.urls import path
+#from django.http import HttpResponse
+from django.urls import path, include
 from django.conf import settings
-from django.shortcuts import render
+from apps.thoughts.views import view
 
 STATIC_DIR = settings.PROJECT_DIR / "static"
-CSS_PATH_BOOTS = STATIC_DIR / "css" / "bootstrap.min.css"
-RESUME_PATH= settings.PROJECT_DIR / "templates" / "Resume.html"
-#here = Path(__file__).parent.resolve()
-def static_re(file="Resume.html", type="text/html"):
-    index=file#here.parent.parent / file
-    with index.open("rb") as f:
-        return HttpResponse(f.read(),content_type=type)
-
-def view(request: HttpRequest) -> HttpResponse: # это хтнты, валидация типов (то есть их соответствие типов)
-    return render(request, "index.html")        # питон приводит значение к типу прямо на месте тк динамич язык
-
-def resume(r):
-    return render(r,RESUME_PATH)
-
-def thoughts(r):
-    return render(r,"Thoughts.html")
-
-
-#def img(rb):
- #   jpg_path= STATIC_DIR / "gBAs.jpg"
-  #  return static_re(jpg_path,"image/jpg")
-
-#def ico(r):
- #   ico_path=STATIC_DIR / "favicon.ico"
-  #  return static_re(ico_path, "image/x-icon")
-
-#def bootstrap(r):
- #   return static_re(CSS_PATH_BOOTS,"text/css")
-
-#def hero(r):
- #   css_path = STATIC_DIR / "css" / "hero-slider-style.css"
-  #  return static_re(css_path, "text/css")
-
-#def magn(r):
- #   css_path = STATIC_DIR / "css" / "magnific-popup.css"
-  #  return static_re(css_path, "text/css")
-
-#def toop(r):
- #   css_path = STATIC_DIR / "css" / "tooplate-style.css"
-  #  return static_re(css_path, "text/css")
-
-#def awesome(r):
- #   css_path = STATIC_DIR / "css" / "font-awesome.min.css"
-  #  return static_re(css_path, "text/css")
-
-#def woff2(r):
- #   woff2_path=STATIC_DIR / "fonts" / "fontawesome-webfont.woff2"
-  #  return static_re(woff2_path,"font/woff2")
-
-#def ttf(r):
- #   ttf_path = STATIC_DIR / "fonts" / "fontawesome-webfont.ttf"
-  #  return static_re(ttf_path,"font/ttf")
-
-#def woff(r):
- #   woff_path = STATIC_DIR / "fonts" / "fontawesome-webfont.woff"
-  #  return static_re(woff_path,"font/woff")
+#CSS_PATH_BOOTS = STATIC_DIR / "css" / "bootstrap.min.css"
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', view),
-    path('Resume.html', resume),
-    path('Thoughts.html',thoughts),
-    path('index.html', view),
+    path('', include("apps.index.urls")),
+    path("resume/", include("apps.resume.urls")),
+    path("thoughts/",include("apps.thoughts.urls"))
+    #path('re/', view, name="re"),
+    #path('tho/', view, name="tho"),
+    #path('index.html', include("apps.index.urls")), #view),
    # path('css/bootstrap.min.css', bootstrap),
    # path('css/hero-slider-style.css', hero),
    # path('css/magnific-popup.css', magn),
