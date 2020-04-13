@@ -2,7 +2,7 @@ from django.contrib import admin
 #from django.http import HttpResponse
 from django.urls import path, include
 from django.conf import settings
-from apps.thoughts.views import view
+#from apps.thoughts.views import view
 
 STATIC_DIR = settings.PROJECT_DIR / "static"
 #CSS_PATH_BOOTS = STATIC_DIR / "css" / "bootstrap.min.css"
@@ -11,7 +11,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include("apps.index.urls")),
     path("resume/", include("apps.resume.urls")),
-    path("thoughts/",include("apps.thoughts.urls"))
+    path("thoughts/",include("apps.thoughts.urls")),
     #path('re/', view, name="re"),
     #path('tho/', view, name="tho"),
     #path('index.html', include("apps.index.urls")), #view),

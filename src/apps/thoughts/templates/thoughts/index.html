@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}My Thoughts{% endblock %}
+
+{% block header %}{% endblock %}
+{% block main %}
+      <br><br>
+<br><br>
+<br><br>
+      <h1 align="center">Feedback</h1>
+      <br><br>
+      <br><br>
+      <form>
+          <p>
+              <label for="comment">Here you can leave recommendations and suggestions to the author website.</label>
+              <textarea id="comment" rows="4" cols="100" placeholder="Write something..."></textarea>
+          </p>
+          <p>
+              <input type="submit" value="Sent">
+          </p>
+      </form>
+
+<br><br>
+<br><br>
+
+{% endblock %}

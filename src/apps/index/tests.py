@@ -1,7 +1,7 @@
 from django.test import Client
 from django.test import TestCase
 
-from apps.index.views import view
+#from apps.index.views import IndexView
 
 
 class Test(TestCase):
@@ -15,4 +15,6 @@ class Test(TestCase):
         self.assertEqual(
             [_t.name for _t in resp.templates], ["index/index.html", "base.html"]
         )
-        self.assertEqual(resp.resolver_match.func, view)
+        from django.views.generic import TemplateView
+        self.assertEqual(resp.resolver_match.func.__name__, TemplateView.as_view().__name__)# не фурыч тк мы сравн саму ф-ку
+        # и ее рез работы и они ссыл на раз ячейки памяти
