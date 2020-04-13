@@ -1,21 +1,30 @@
 #import os
+from os import getenv
 from  pathlib import Path
 
 #BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+import dj_database_url
+from dynaconf import settings as _settings
+
 PROJECT_DIR=Path(__file__).parent.resolve()
 BASE_DIR=PROJECT_DIR.parent.resolve()
 REPO_DIR=BASE_DIR.parent.resolve()
 
+SECRET_KEY = _settings.SECRET_KEY
+
+DEBUG = _settings.DEBUG
+
+ALLOWED_HOSTS = _settings.ALLOWED_HOSTS
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '(z+8!f+v0wqn63i2!kbyt8r!vrr6()aw#-2kd_9pw)6yhr_gp6'
+#SECRET_KEY = '(z+8!f+v0wqn63i2!kbyt8r!vrr6()aw#-2kd_9pw)6yhr_gp6'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = 1
+#DEBUG = 1
 
-ALLOWED_HOSTS = [
-    "localhost",
-    "127.0.0.1",
-    "xgul.herokuapp.com",]
+#ALLOWED_HOSTS = [
+ #   "localhost",
+  #  "127.0.0.1",
+   # "xgul.herokuapp.com",]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -56,17 +65,23 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+        "libraries": {"project_tags": "project.templatetags",},
         },
     },
 ]
 
 WSGI_APPLICATION = 'project.wsgi.application'
 
+_db_url = _settings.DATABASE_URL
+if _settings.ENV_FOR_DYNACONF == "heroku":
+    _db_url = getenv("DATABASE_URL")
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': (BASE_DIR / 'db.sqlite3').as_posix(), #
-    }
+    'default': dj_database_url.parse(_db_url, conn_max_age=600),
+    # {
+        #'ENGINE': 'django.db.backends.sqlite3',
+        #'NAME': (BASE_DIR / 'db.sqlite3').as_posix(), #
+
 }
 
 AUTH_PASSWORD_VALIDATORS = [
