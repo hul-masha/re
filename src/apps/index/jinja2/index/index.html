@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% load static %}
+
 
 {% block title %}My page{% endblock %}
 
@@ -9,7 +9,7 @@
 <br><br>
 <br><br>
         <aside>
-            <img alt="it's me" align="right" width="500" height="622" src="{% static 'index/gBAs.jpg' %}">
+            <img alt="it's me" align="right" width="500" height="622" src="{{ static('index/gBAs.jpg') }}">
   <!img src="gBAs.jpg" align="right" width="500" height="622" alt="it's me">
         </aside>
     <article>

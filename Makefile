@@ -1,7 +1,8 @@
-HERE := $(shell pwd)
 BRANCH := $(shell git branch --quiet --no-color | grep '*' | sed -e 's/^\*\ //g')
+HERE := $(shell pwd)
 UNTRACKED := $(shell git status --short | grep -e '^[ ?]' | wc -l | sed -e 's/\ *//g')
 UNTRACKED2 := $(shell git status --short | awk '{print substr($$0, 2, 2)}' | grep -e '\w\+' | wc -l | sed -e 's/\ *//g')
+VENV := $(shell pipenv --venv)
 
 run: static
 	DJANGO_DEBUG=TRUE pipenv run python src/manage.py runserver
