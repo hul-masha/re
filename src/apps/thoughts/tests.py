@@ -1,7 +1,8 @@
 from django.test import Client
 from django.test import TestCase
+from django.views.generic import TemplateView
 
-from apps.thoughts.views import IndexView
+#from apps.thoughts.views import IndexView
 
 
 class Test(TestCase):
@@ -20,4 +21,4 @@ class Test(TestCase):
        # self.assertEqual(
         #    [_t.name for _t in resp.templates], ["thoughts/index.html", "base.html"]
         #)
-        self.assertEqual(resp.resolver_match.func.__name__, IndexView.as_view().__name__)
+        self.assertEqual(resp.resolver_match.func.__name__, TemplateView.as_view().__name__)

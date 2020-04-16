@@ -4,7 +4,7 @@ from apps.index.apps import IndexConfig
 #from apps.index.views import IndexView
 from django.views.generic import TemplateView
 
-app_name=IndexConfig.name
+app_name=IndexConfig.label
 
 urlpatterns = [
     path('', TemplateView.as_view(template_name='index/index.html',

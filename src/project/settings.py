@@ -16,16 +16,6 @@ SECRET_KEY = _settings.SECRET_KEY
 DEBUG = _settings.DEBUG
 
 ALLOWED_HOSTS = _settings.ALLOWED_HOSTS
-# SECURITY WARNING: keep the secret key used in production secret!
-#SECRET_KEY = '(z+8!f+v0wqn63i2!kbyt8r!vrr6()aw#-2kd_9pw)6yhr_gp6'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-#DEBUG = 1
-
-#ALLOWED_HOSTS = [
- #   "localhost",
-  #  "127.0.0.1",
-   # "xgul.herokuapp.com",]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
