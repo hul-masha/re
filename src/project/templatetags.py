@@ -11,6 +11,7 @@ def startswith(text, starts):
     return False
 
 
+# not using now
 @register.simple_tag(takes_context=True)
 def jinja_include(context, filename):
     template = get_template(filename)
