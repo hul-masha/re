@@ -67,7 +67,7 @@ deploy: format test clean
 	git push origin master
 
 .PHONY: install
-install: clean
+install:
 	pipenv update --dev
 
 .PHONY: clean
