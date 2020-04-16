@@ -2,5 +2,5 @@ from django.apps import AppConfig
 
 
 class IndexConfig(AppConfig):
-    name = 'apps.index'
-    label='index'
+    name = "apps.index"
+    label = "index"

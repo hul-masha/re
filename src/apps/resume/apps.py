@@ -2,5 +2,5 @@ from django.apps import AppConfig
 
 
 class ResumeConfig(AppConfig):
-    name = 'apps.resume'
-    label='resume'
+    name = "apps.resume"
+    label = "resume"

@@ -10,7 +10,7 @@ endif
 
 .PHONY: format
 format:
-	pipenv run isort --virtual-env ${VENV} --recursive --apply ${HERE}
+	pipenv run isort --virtual-env ${VENV} --recursive --apply ${HERE} -vb
 	pipenv run black ${HERE}
 
 .PHONY: run
@@ -45,6 +45,8 @@ test:
 				project \
 
 	pipenv run coverage report
+	pipenv run isort --virtual-env ${VENV} --recursive --check-only ${HERE}
+
 
 
 
