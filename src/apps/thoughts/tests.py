@@ -1,4 +1,5 @@
-from django.test import Client, TestCase
+from django.test import Client
+from django.test import TestCase
 from django.views.generic import TemplateView
 
 # from apps.thoughts.views import IndexView
@@ -15,6 +16,9 @@ class Test(TestCase):
         self.assertEqual(
             len(resp.template_name), 1
         )  # значит что список содержит только имя самого файла
+        self.assertEqual(resp.resolver_match.app_name, "thoughts")
+        self.assertEqual(resp.resolver_match.url_name, "index")
+        self.assertEqual(resp.resolver_match.view_name, "thoughts:index")
         self.assertEqual(
             [_t for _t in resp.template_name], ["thoughts/index.html"]  # , "base.html"]
         )
