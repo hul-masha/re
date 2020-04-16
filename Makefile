@@ -45,7 +45,7 @@ test:
 				project \
 
 	pipenv run coverage report
-	pipenv run isort --virtual-env ${VENV} --recursive --check-only ${HERE}
+
 
 
 .PHONY: report
