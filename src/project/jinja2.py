@@ -13,10 +13,12 @@ from jinja2 import ModuleLoader
 
 
 def environment(**options):
-
+    #import pdb; pdb.set_trace()
     Environment(**options).compile_templates("src/project/target.zip")
     env = Environment(loader=ModuleLoader("src/project/target.zip"))
     env.globals.update(
         {"static": static, "url": reverse,}
     )
+    #template = env.get_template("index/index.html")
+    #return template.render()
     return env
