@@ -12,9 +12,6 @@ class UserInfo(m.Model):
         def __str__(self):
             return f"UserInfo(id={self.pk},name={self.name!r})" #not work
 
-
-
-
 #a = UserInfo()
 #b = UserInfo()
 #print(a.name); print(b.name)
