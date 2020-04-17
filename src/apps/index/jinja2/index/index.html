@@ -2,7 +2,7 @@
 
 
 
-{% block title %}My page{% endblock %}
+{% block title %}My page {{name}}{% endblock %}
 
 {% block header %}{% endblock %}
 {% block main %}
@@ -19,9 +19,8 @@
 <br><br>
 <br><br>
         <big>
-    <p align=center>Hi!</p>
-    <p align=center>I'm Masha. Here is my site with some professional info about me.</p>
-    </big>
+            {{greeting | safe}}
+      </big>
     </article>
 <br><br>
 <br><br>
