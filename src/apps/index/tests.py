@@ -1,7 +1,8 @@
 from django.test import Client
 from django.test import TestCase
 
-# from apps.index.views import IndexView
+from apps.index.models import UserInfo
+from apps.index.views import IndexView
 
 
 class Test(TestCase):
@@ -9,6 +10,8 @@ class Test(TestCase):
         self.cli = Client()
 
     def test_get(self):
+        info = UserInfo(name="xxx")
+        info.save()
         resp = self.cli.get("/")
         self.assertEqual(resp.status_code, 200)
 
@@ -30,5 +33,5 @@ class Test(TestCase):
         from django.views.generic import TemplateView
 
         self.assertEqual(
-            resp.resolver_match.func.__name__, TemplateView.as_view().__name__
+            resp.resolver_match.func.__name__, IndexView.as_view().__name__
         )

@@ -3,7 +3,8 @@ HERE := $(shell pwd)
 UNTRACKED := $(shell git status --short | grep -e '^[ ?]' | wc -l | sed -e 's/\ *//g')
 UNTRACKED2 := $(shell git status --short | awk '{print substr($$0, 2, 2)}' | grep -e '\w\+' | wc -l | sed -e 's/\ *//g')
 VENV := $(shell pipenv --venv)
-
+ash := asham
+data := tmssite
 ifeq ($(origin ENV_FOR_DYNACONF), undefined)
 		ENV_FOR_DYNACONF=test
 endif
@@ -12,6 +13,14 @@ endif
 format:
 	pipenv run isort --virtual-env ${VENV} --recursive --apply ${HERE} -vb
 	pipenv run black ${HERE}
+
+.PHONY: sh
+sh:
+	pipenv run python src/manage.py shell
+
+.PHONY: psql
+psql:
+	psql -h localhost -U ${ash} -W -d ${data}
 
 .PHONY: run
 run: static
@@ -46,6 +55,7 @@ test:
 
 	pipenv run coverage report
 	pipenv run isort --virtual-env ${VENV} --recursive --check-only ${HERE}
+	pipenv run black --check ${HERE}
 
 
 
