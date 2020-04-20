@@ -1,8 +1,8 @@
 from django.test import Client
 from django.test import TestCase
-from django.views.generic import TemplateView
 
-# from apps.thoughts.views import IndexView
+from apps.thoughts.models import FeedbackInfo
+from apps.thoughts.views import IndexView
 
 
 class Test(TestCase):
@@ -10,6 +10,8 @@ class Test(TestCase):
         self.cli = Client()
 
     def test_get(self):
+        info = FeedbackInfo(name="xxx")
+        info.save()
         resp = self.cli.get("/thoughts/")
         self.assertEqual(resp.status_code, 200)
         self.assertEqual(len(resp.templates), 0)  # значит что исп не джанга шаблоны
@@ -27,5 +29,5 @@ class Test(TestCase):
         #    [_t.name for _t in resp.templates], ["thoughts/index.html", "base.html"]
         # )
         self.assertEqual(
-            resp.resolver_match.func.__name__, TemplateView.as_view().__name__
+            resp.resolver_match.func.__name__, IndexView.as_view().__name__
         )
