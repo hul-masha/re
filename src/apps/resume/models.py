@@ -3,6 +3,8 @@ from django.db import models
 class Technology(models.Model):
     name = models.TextField(unique=True)
     description = models.TextField(null=True, blank=True)
+    def __str__(self):
+        return f"#{self.pk}: {self.name!r}"
     #projects = models.ManyToManyField(projects)
 
 class Project(models.Model):
