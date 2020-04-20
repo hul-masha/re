@@ -1,3 +1,18 @@
 from django.db import models
 
-# Create your models here.
+class Technology(models.Model):
+    name = models.TextField(unique=True)
+    description = models.TextField(null=True, blank=True)
+    #projects = models.ManyToManyField(projects)
+
+class Project(models.Model):
+    started_at = models.DateField(null=True, blank=True)
+    finished_at = models.TextField(null=True, blank=True)
+    summary = models.TextField(null=True, blank=True)
+    technologies = models.ManyToManyField(Technology, related_name="projects")
+    #technology = models.TextField()
+    #python = models.BooleanField()
+    #django = models.BooleanField()
+#tech = ...
+
+#print(tech.tech)
