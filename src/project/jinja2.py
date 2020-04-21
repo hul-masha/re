@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.templatetags.static import static
 from django.urls import reverse
 from jinja2 import Environment
@@ -16,9 +17,7 @@ def environment(**options):
     # import pdb; pdb.set_trace()
     Environment(**options).compile_templates("src/project/target.zip")
     env = Environment(loader=ModuleLoader("src/project/target.zip"))
-    env.globals.update(
-        {"static": static, "url": reverse,}
-    )
+    env.globals.update({"static": static, "url": reverse, "debug": settings.DEBUG})
     # template = env.get_template("index/index.html")
     # return template.render()
     return env

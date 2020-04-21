@@ -15,15 +15,25 @@
 <br><br>
             <big>
 			<p align=center>Knowledge and experience
-				{% for project in projects %}
+				{% for project in object_list %}   {# projects #}
+				<p>{{project.firm}}</p>
 				<p>from {{project.started_at}} till {{project.finished_at}}</p>
 				<p>{{project.summary}}</p>
 				<p>Framework:</p>
+				{% if project.responsibilities.count() %}
+				<p>Responsibilities:</p>
+				<ul>
+					{% for resp in project.responsibilities.all() %}
+					<li> {{resp.summary}}</li>
+					{% endfor %}
+				</ul>
+				{% endif %}
 				<ul>
 					{% for technology in project.technologies.all() %}
 					<li>{{technology.name}}</li>
 					{% endfor %}
 				</ul>
+
 				{% endfor %}
 			{#<!p align=left>I have a some knowledge and experience in  algorithms and data structures, methods of numerical analysis and other areas related to the optimization of computational processes.
 			<!p align=left>Recommendations may be provided upon request.
