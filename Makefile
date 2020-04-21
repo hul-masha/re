@@ -23,7 +23,7 @@ psql:
 	psql -h localhost -U ${ash} -W -d ${data}
 
 .PHONY: run
-run: static
+run: t static
 	 pipenv run python src/manage.py runserver
 
 .PHONY: static
@@ -86,3 +86,7 @@ clean:
 	rm -rf htmlcov
 	find . -type d -name "__pycache__" | xargs rm -rf
 	rm -rf ./.static/
+
+.PHONY: t
+t:
+	pipenv run python src/recompile_templates.py
