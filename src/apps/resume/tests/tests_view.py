@@ -3,14 +3,22 @@ from django.test import TestCase
 from django.views.generic import TemplateView
 
 from apps.resume.views import IndexView
+from project.utils.xtest import ResponseTestMixin
 
 
-class Test(TestCase):
+class Test(TestCase, ResponseTestMixin):
     def setUp(self) -> None:
         self.cli = Client()
 
     def test_get(self):
-        # info = UserInfo(name="xxx")
+        self.validate_response(
+            url="/resume/",
+            expected_view=IndexView,
+            expected_view_name="resume:index",
+            expected_template="resume/index.html",
+        )
+
+        """# info = UserInfo(name="xxx")
         # info.save()
         resp = self.cli.get("/resume/")
         self.assertEqual(resp.status_code, 200)
@@ -33,4 +41,4 @@ class Test(TestCase):
         # )
         self.assertEqual(
             resp.resolver_match.func.__name__, IndexView.as_view().__name__
-        )
+        )"""

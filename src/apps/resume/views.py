@@ -5,7 +5,7 @@ from django.views import View
 from django.views.generic import ListView
 from django.views.generic import TemplateView
 
-from apps.resume.models import Project
+from apps.resume.models.project import Project
 
 
 class IndexView(ListView):  # TemplateView
@@ -15,14 +15,14 @@ class IndexView(ListView):  # TemplateView
         "file2": ["thoughts:index", "Thoughts"],
         "file3": ["index:index", "Home"],
     }
-    model = Project  ##
+    model = Project  ##queryset = Project.objects.filter(is_hidden=False)
 
-    def get_context_data(self, **kwargs):
+    """def get_context_data(self, **kwargs):
         ctx = super().get_context_data()
 
         projects = Project.objects.all()
         ctx["projects"] = projects
-        return ctx
+        return ctx"""
 
 
 # queryset = Project.objects.filter(firm__stertswith="T")lte

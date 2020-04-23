@@ -25,6 +25,6 @@ class Comment(m.Model):
     author = m.ForeignKey(User, on_delete=m.CASCADE, related_name="users")
     message = m.TextField()
     post = m.ForeignKey(Feedback, on_delete=m.CASCADE, related_name="post")
-    #parent = m.ForeignKey("Comment",
+    # parent = m.ForeignKey("Comment",
     #                     on_delete=m.CASCADE, related_name="coments",)
     like = m.IntegerField(null=True, blank=True)
