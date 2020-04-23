@@ -23,7 +23,7 @@ psql:
 	psql -h localhost -U ${ash} -W -d ${data}
 
 .PHONY: run
-run: t static
+run: static
 	 pipenv run python src/manage.py runserver
 
 .PHONY: static
