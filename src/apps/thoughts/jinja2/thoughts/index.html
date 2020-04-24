@@ -4,11 +4,27 @@
 
 {% block title %} Thoughts{% endblock %}
 
-{% block header %}{% endblock %}
+{% block header %}
+{% endblock %}
 {% block main %}
-      <br><br>
 <br><br>
 <br><br>
+<br><br>
+{# NOT WORK{% for p in object_list %}
+        <p>Post about {{p.tema}}</p>
+{% if p.post.count() %}
+        <p>{{p.post.first().message}}</p>
+    {% set k=p.post.first() %}
+{% for l in p.post.all() %}  #}
+     {#<h1>{{k}} and {{l}}</h1> #}
+  {# {% if l.parent==k %}
+        <p> {{'-'*loop.index}}{{l.message}}</p>  #}
+   {# {% set k=l %}
+        <p>{{k}}</p>
+   {% endif %} #}
+   {# {% endfor %}
+{% endif %}
+{% endfor %} #}
       <h1 align="center">Feedback</h1>
       <br><br>
       <br><br>

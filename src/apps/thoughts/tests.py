@@ -1,7 +1,9 @@
+import datetime as d
+
 from django.test import Client
 from django.test import TestCase
 
-from apps.thoughts.models import Feedback
+from apps.thoughts.models import Post
 from apps.thoughts.views import IndexView
 
 
@@ -10,7 +12,7 @@ class Test(TestCase):
         self.cli = Client()
 
     def test_get(self):
-        info = Feedback(name="xxx")
+        info = Post(tema="xxx", data=d.date(2001, 12, 13))
         info.save()
         resp = self.cli.get("/thoughts/")
         self.assertEqual(resp.status_code, 200)
