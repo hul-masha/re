@@ -1,7 +1,7 @@
+from django.conf import settings
 from django.templatetags.static import static
 from django.urls import reverse
 from jinja2 import Environment
-from jinja2 import FileSystemLoader
 from jinja2 import ModuleLoader
 
 # Compile template
@@ -13,12 +13,10 @@ from jinja2 import ModuleLoader
 
 
 def environment(**options):
+    # env = Environment(**options)
     # import pdb; pdb.set_trace()
-    Environment(**options).compile_templates("src/project/target.zip")
+    # раскоментить когда меняю содержимое шаблона или создаю новый
+    # Environment(**options).compile_templates("src/project/target.zip")
     env = Environment(loader=ModuleLoader("src/project/target.zip"))
-    env.globals.update(
-        {"static": static, "url": reverse,}
-    )
-    # template = env.get_template("index/index.html")
-    # return template.render()
+    env.globals.update({"static": static, "url": reverse, "debug": settings.DEBUG})
     return env

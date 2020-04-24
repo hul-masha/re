@@ -26,7 +26,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "apps.index.apps.IndexConfig",
     "apps.resume",
-    "apps.thoughts",
+    "apps.thoughts.apps.ThoughtsConfig",
 ]
 
 MIDDLEWARE = [

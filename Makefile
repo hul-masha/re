@@ -86,3 +86,7 @@ clean:
 	rm -rf htmlcov
 	find . -type d -name "__pycache__" | xargs rm -rf
 	rm -rf ./.static/
+
+.PHONY: t
+t:
+	pipenv run python src/recompile_templates.py
