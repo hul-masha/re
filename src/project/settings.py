@@ -108,6 +108,7 @@ STATICFILES_DIRS = [
 STATIC_ROOT = REPO_DIR / ".static"  # место где хранится статика
 
 if not DEBUG:
+
     import sentry_sdk
     from sentry_sdk.integrations.django import DjangoIntegration
 
@@ -116,3 +117,4 @@ if not DEBUG:
         integrations=[DjangoIntegration()],
         send_default_pii=True,
     )
+
