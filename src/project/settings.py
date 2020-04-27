@@ -90,6 +90,7 @@ AUTH_PASSWORD_VALIDATORS = [
 LANGUAGE_CODE = "en-us"
 
 TIME_ZONE = "UTC"
+LOCAL_TIME_ZONE = _settings.LOCAL_TIME_ZONE
 
 USE_I18N = True
 
@@ -105,3 +106,13 @@ STATICFILES_DIRS = [
 ]
 
 STATIC_ROOT = REPO_DIR / ".static"  # место где хранится статика
+
+if not DEBUG:
+    import sentry_sdk
+    from sentry_sdk.integrations.django import DjangoIntegration
+
+    sentry_sdk.init(
+        dsn=_settings.SENTRY_DSN,
+        integrations=[DjangoIntegration()],
+        send_default_pii=True,
+    )
