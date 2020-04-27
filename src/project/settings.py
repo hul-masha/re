@@ -27,6 +27,7 @@ INSTALLED_APPS = [
     "apps.index.apps.IndexConfig",
     "apps.resume",
     "apps.thoughts.apps.ThoughtsConfig",
+    "apps.blog.apps.BlogConfig",
 ]
 
 MIDDLEWARE = [
@@ -117,4 +118,3 @@ if not DEBUG:
         integrations=[DjangoIntegration()],
         send_default_pii=True,
     )
-
