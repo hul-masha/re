@@ -18,7 +18,8 @@ class Test(TestCase):
         self.assertEqual(resp.status_code, 200)
         self.assertEqual(len(resp.templates), 0)  # значит что исп не джанга шаблоны
         self.assertEqual(
-            len(resp.template_name), 2
+            len(resp.template_name),
+            1,  # при queryset нет пути по умолчанию ('thoughts/post_list.html')
         )  # значит что список содержит только имя самого файла
         self.assertEqual(resp.resolver_match.app_name, "thoughts")
         self.assertEqual(resp.resolver_match.url_name, "index")

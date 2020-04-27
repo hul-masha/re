@@ -10,21 +10,15 @@
 <br><br>
 <br><br>
 <br><br>
-{# NOT WORK{% for p in object_list %}
-        <p>Post about {{p.tema}}</p>
-{% if p.post.count() %}
-        <p>{{p.post.first().message}}</p>
-    {% set k=p.post.first() %}
-{% for l in p.post.all() %}  #}
-     {#<h1>{{k}} and {{l}}</h1> #}
-  {# {% if l.parent==k %}
-        <p> {{'-'*loop.index}}{{l.message}}</p>  #}
-   {# {% set k=l %}
-        <p>{{k}}</p>
-   {% endif %} #}
-   {# {% endfor %}
+{% for p in object_list %}
+{#<p>{{p}}</p>#}
+    {% if p|length==1 %}
+        <p>Post about {{p[0].tema}}  text : {{p[0].post_text}}</p>
+    {% else %}
+            <p>{{"-"*p[0]}}{{p[1].message}}</p>
 {% endif %}
-{% endfor %} #}
+{% endfor %}
+
       <h1 align="center">Feedback</h1>
       <br><br>
       <br><br>

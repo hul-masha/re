@@ -25,10 +25,8 @@ class TechnologyAdminModel(ModelAdmin):
 @admin.register(Project)
 class ProjectAdminModel(ModelAdmin):
     form = gen_textinput_admin_form(Project, [Project.name, Project.summary])
-    # баг что нельзя указать лишь одно поле к кортеже
-    # почему кортеж с 1м элементом не может быть генератором?
 
 
 @admin.register(Firm)
 class FirmAdminModel(ModelAdmin):
-    form = gen_textinput_admin_form(Project, [Firm.name])
+    form = gen_textinput_admin_form(Project, (Firm.name,))

@@ -13,13 +13,13 @@ from apps.thoughts.models import Post
 
 
 class IndexView(ListView):
-    model = Post
-
-    def get_context_data(self, **kwargs):
+    # model = Post
+    queryset = Post.li(Post)
+    """def get_context_data(self, **kwargs):
         ctx = super(IndexView, self).get_context_data()
         info = Post.objects.all()
         ctx["info"] = info
-        return ctx
+        return ctx в ListView это не нужно (уже есть)"""
 
 
 # class IndexView(View):
