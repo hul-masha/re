@@ -26,7 +26,7 @@ test:
   SECRET_KEY: "1"
 
 travis:
-  DATABASE_URL: "postgresql://postgres@localhost:5432/tmssite"
+  DATABASE_URL: "postgresql://postgres@localhost:5432/test"
   DEBUG: true
   PROFILING: 0
   SECRET_KEY: "1"
