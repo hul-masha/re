@@ -14,8 +14,13 @@ REPO_DIR = BASE_DIR.parent.resolve()
 SECRET_KEY = _settings.SECRET_KEY
 
 DEBUG = _settings.DEBUG
+PROFILING = _settings.PROFILING
 
-ALLOWED_HOSTS = _settings.ALLOWED_HOSTS
+ALLOWED_HOSTS = _settings.ALLOWED_HOSTS + ["localhost", "127.0.0.1"]
+
+INTERNAL_IPS = [
+    "127.0.0.1",
+]
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -28,9 +33,15 @@ INSTALLED_APPS = [
     "apps.resume",
     "apps.thoughts.apps.ThoughtsConfig",
     "apps.blog.apps.BlogConfig",
+    "silk",
 ]
 
+# if PROFILING:
+#   INSTALLED_APPS.append("silk")
+
+
 MIDDLEWARE = [
+    "silk.middleware.SilkyMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -40,6 +51,12 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
+
+if PROFILING:
+    # MIDDLEWARE=["silk.middleware.SilkyMiddleware"]+MIDDLEWARE
+    SILKY_PYTHON_PROFILER = True
+    SILKY_PYTHON_PROFILER_BINARY = True
+
 
 ROOT_URLCONF = "project.urls"
 
@@ -107,6 +124,9 @@ STATICFILES_DIRS = [
 ]
 
 STATIC_ROOT = REPO_DIR / ".static"  # место где хранится статика
+
+if not DEBUG:
+    STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 if not DEBUG:
 

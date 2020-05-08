@@ -2,6 +2,7 @@ from django.conf import settings
 from django.contrib import admin
 from django.urls import include
 from django.urls import path
+from django.urls import re_path
 
 # from apps.thoughts.views import view
 
@@ -35,6 +36,9 @@ urlpatterns = [
     # path('fonts/fontawesome-webfont.eot',eot),
     # path('fonts/FontAwesome.otf',otf),
 ]
+
+if settings.DEBUG and settings.PROFILING:  # pragma: no cover
+    urlpatterns.append(re_path(r"^silk/", include("silk.urls", namespace="silk")))
 
 
 # def view(r, f=static_re):

@@ -9,6 +9,11 @@ httpie = "*"
 codecov = "*"
 coverage = "*"
 isort = "*"
+django-silk = "*"
+freezegun = "*"
+ipython = "*"
+line-profiler = "*"
+pudb = "*"
 
 [packages]
 django = "*"

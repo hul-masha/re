@@ -1,4 +1,5 @@
 import datetime as d
+from unittest import skip
 
 from django.test import Client
 from django.test import TestCase
@@ -7,6 +8,7 @@ from apps.thoughts.models import Post
 from apps.thoughts.views import IndexView
 
 
+@skip
 class Test(TestCase):
     def setUp(self) -> None:
         self.cli = Client()
