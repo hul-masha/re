@@ -13,10 +13,10 @@ from jinja2 import ModuleLoader
 
 
 def environment(**options):
-    env = Environment(**options)
+    # env = Environment(**options)
     # import pdb; pdb.set_trace()
     # раскоментить когда меняю содержимое шаблона или создаю новый
     # Environment(**options).compile_templates("src/project/target.zip")
-    # env = Environment(loader=ModuleLoader("src/project/target.zip"))
+    env = Environment(loader=ModuleLoader("src/project/target.zip"))
     env.globals.update({"static": static, "url": reverse, "debug": settings.DEBUG})
     return env

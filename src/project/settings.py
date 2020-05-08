@@ -33,7 +33,7 @@ INSTALLED_APPS = [
     "apps.resume",
     "apps.thoughts.apps.ThoughtsConfig",
     "apps.blog.apps.BlogConfig",
-    "silk",
+    # "silk", #убрать перед тестами
 ]
 
 # if PROFILING:
@@ -41,7 +41,7 @@ INSTALLED_APPS = [
 
 
 MIDDLEWARE = [
-    "silk.middleware.SilkyMiddleware",
+    # "silk.middleware.SilkyMiddleware",#убрать перед тестами
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",

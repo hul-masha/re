@@ -1,13 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+{% extends "base.html" %}
+{% block title %}My page blog{% endblock %}
 
+{% block header %}{% endblock %}
+{% block main %}
+<br><br>
+<br><br><br><br>
 {% for post in object_list %}
+        <article>
+            <h3>{{ post.title }}</h3>
+            <p>{{ (post.content or '')|truncate(200, end='') }} <a href="{{ post.get_absolute_url() }}">...</a></p>
+        </article>
+    {% endfor %}
+{#{% for post in object_list %}
    <a href="{{post.get_absolute_url()}}"><h1>{{post.pk}} - {{post.title}}</h1></a>
 
-{% endfor %}
-</body>
-</html>
+{% endfor %}#}
+{% endblock %}
