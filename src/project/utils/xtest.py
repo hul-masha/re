@@ -4,9 +4,17 @@ from typing import Collection
 from typing import Dict
 from typing import List
 from typing import Optional
+from typing import Text
 
 from django.contrib.auth import get_user_model
 from django.test import Client
+
+from apps.onboarding.models import AuthProfile
+from apps.onboarding.models import Profile
+from project.utils.xdatetime import utcnow
+
+# from rest_framework import status
+
 
 User = get_user_model()
 
@@ -59,7 +67,7 @@ class UserTestMixin:
         credentials = {"username": user.username, "password": user.username}
 
         resp = cli.post("/api/obtain_auth_token/", credentials)
-        self.assertEqual(status.HTTP_200_OK, resp.status_code)
+        # self.assertEqual(status.HTTP_200_OK, resp.status_code)
 
         payload = resp.json()
         self.assertEqual(1, len(payload))
@@ -77,17 +85,17 @@ class ResponseTestMixin:
         self,
         *,
         url: str,
-        expected_view_name: str,
-        expected_view: type,
-        expected_template: str,
+        client: Optional = None,
         method: Optional[str] = "get",
         form_data: Optional[Dict] = None,
         expected_status_code: Optional[int] = 200,
+        expected_view: Optional[type] = None,
+        expected_view_name: Optional[str] = None,
+        expected_template: Optional[str] = None,
         content_filters: Optional[Collection[Callable[[bytes], bool]]] = None,
         expected_redirect_chain: Optional[List] = None,
-        client: Optional = None,
     ):
-        cli = client if client else Client()
+        cli = client or self.client
         meth = getattr(cli, method)
 
         meth_args = []
@@ -95,17 +103,62 @@ class ResponseTestMixin:
             meth_args.append(form_data)
 
         resp = meth(url, *meth_args, follow=True)
-        self.assertEqual(resp.status_code, expected_status_code)
+        self.assertEqual(expected_status_code, resp.status_code, f"bad status code")
 
         if expected_redirect_chain is not None:
-            self.assertEqual(resp.redirect_chain, expected_redirect_chain)
+            self.assertEqual(
+                expected_redirect_chain, resp.redirect_chain, f"bad redirect chain"
+            )
 
-        self.assertEqual(resp.resolver_match.view_name, expected_view_name)
-        self.assertEqual(
-            resp.resolver_match.func.__name__, expected_view.as_view().__name__
-        )
+        good_resolver_codes = {
+            200,
+        }
 
-        self.assertIn(expected_template, resp.template_name)
+        if expected_status_code in good_resolver_codes:
+            self.assertEqual(
+                expected_view_name, resp.resolver_match.view_name, f"bad view name",
+            )
+            self.assertEqual(
+                expected_view.as_view().__name__,
+                resp.resolver_match.func.__name__,
+                "bad view class/function name",
+            )
+
+            if expected_template is not None:
+                self.assertIn(
+                    expected_template, resp.template_name, f"bad template",
+                )
 
         for content_filter in content_filters or []:
-            self.assertTrue(content_filter(resp.content))
+            content = resp.content
+            self.assertTrue(
+                content_filter(content),
+                f"content filter {content_filter} failed: content=`{content}`",
+            )
+
+
+class ApiTestMixin:
+    def validate_response(
+        self,
+        url: str,
+        *,
+        client: Optional = None,
+        method: Optional[str] = "get",
+        headers: Optional[Dict[Text, Text]] = None,
+        data: Optional = None,
+        expected_status_code: Optional[int] = 200,
+        expected_response_payload: Optional = None,
+    ):
+        cli = client or self.client
+        meth = getattr(cli, method)
+
+        kwargs = (headers or {}).copy()
+        if data is not None:
+            kwargs["data"] = data
+
+        resp = meth(url, content_type="application/json", **kwargs)
+        self.assertEqual(expected_status_code, resp.status_code)
+
+        if expected_response_payload is not None:
+            payload = resp.json()
+            self.assertEqual(expected_response_payload, payload)

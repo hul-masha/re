@@ -13,10 +13,9 @@ class Test(TestCase, ResponseTestMixin):
             expected_view=AllBlogPostView,
             expected_template="blog/blog.html",
             expected_view_name="blog:blog",
-            # content_filters=(lambda _c: b"Blog" in _c,),
+            content_filters=(lambda _c: b"blog" in _c,),
         )
 
-    @skip
     def test_post(self):
         self.validate_response(
             method="post",
@@ -25,5 +24,5 @@ class Test(TestCase, ResponseTestMixin):
             expected_view=AllBlogPostView,
             expected_template="blog/blog.html",
             expected_view_name="blog:blog",
-            # content_filters=(lambda _c: _c == b"",),
+            content_filters=(lambda _c: _c == b"",),
         )

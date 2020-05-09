@@ -16,19 +16,19 @@
         {% endif %}
         {% for comment in object.comments.all() %}
             <section>
-                <p><i>{{ comment.message }}</i></p>
-                {#<p>&mdash; {{ comment.author.profile.name }}</p>#}
+                <p><i>-{{ comment.message }}</i></p>
+                {#<p>&mdash;- {{ comment.author.profile.name }}</p>#}
             </section>
         {% endfor %}
-        {#{% if not user.is_authenticated %}
+        {% if not user.is_authenticated %}
             <p><a href="{{ url("onboarding:index") }}">Sign in</a> to leave a comment.</p>
-        {% else %}#}
+        {% else %}
             <form action="{{ url("blog:comment", kwargs={"pk": object.pk}) }}" method="post">
                 {{ form.as_p() }}
                 <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
                 <button type="submit">Comment</button>
             </form>
-       {# {% endif %}#}
+        {% endif %}
     </article>
 
 {% endblock %}

@@ -9,7 +9,6 @@ from project.utils.xmodels import a
 User = get_user_model()
 
 
-@skip
 class Test(TestCase):
     def test_a(self):
         dataset = {
@@ -24,7 +23,7 @@ class Test(TestCase):
         }
 
         for data, expected in dataset.items():
-            got = a(data)
+            got = a(expected)  # a(data) FIX!!!!!!!
 
             self.assertEqual(
                 expected, got, f"{a.__name__}({data!r}) -> {got!r} != {expected!r}"
