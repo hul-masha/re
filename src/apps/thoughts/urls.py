@@ -9,7 +9,7 @@ app_name = ThoughtsConfig.label
 urlpatterns = [
     path(
         "",
-        IndexView.as_view(
+        TemplateView.as_view(
             template_name="thoughts/index.html",
             extra_context={
                 "File": ["thoughts", "THOUGHTS", "thoughts:index"],

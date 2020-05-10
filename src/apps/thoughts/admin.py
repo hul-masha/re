@@ -1,4 +1,4 @@
-from django.contrib import admin
+"""from django.contrib import admin
 from django.contrib.admin import ModelAdmin
 
 from apps.thoughts.models import Comment
@@ -19,4 +19,4 @@ class CommentAdminModel(ModelAdmin):
 
 @admin.register(User)
 class UserAdminModel(ModelAdmin):
-    form = gen_textinput_admin_form(User, [User.name,],)
+    form = gen_textinput_admin_form(User, [User.name,],)"""

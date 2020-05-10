@@ -5,7 +5,7 @@ from django.views import View
 from django.views.generic import DetailView
 from django.views.generic import ListView
 
-from apps.thoughts.models import Post
+# from apps.thoughts.models import Post
 
 # Create your views here.
 # def view(request: HttpRequest) -> HttpResponse:
@@ -14,7 +14,7 @@ from apps.thoughts.models import Post
 
 class IndexView(ListView):
     # model = Post
-    queryset = Post.li(Post)
+    # queryset = Post.li(Post)
     """def get_context_data(self, **kwargs):
         ctx = super(IndexView, self).get_context_data()
         info = Post.objects.all()

@@ -16,8 +16,8 @@
         {% endif %}
         {% for comment in object.comments.all() %}
             <section>
-                <p><i>-{{ comment.message }}</i></p>
-                {#<p>&mdash;- {{ comment.author.profile.name }}</p>#}
+                <p><i>{{ comment.author.profile.name }}:-{{ comment.message }}</i></p>
+
             </section>
         {% endfor %}
         {% if not user.is_authenticated %}

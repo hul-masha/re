@@ -40,7 +40,7 @@ psql:
 
 .PHONY: run
 run: static
-	 ${MANAGE} runserver
+	 ${MANAGE} runserver 0.0.0.0:8000
 
 .PHONY: static
 static:
@@ -55,6 +55,14 @@ migrations:
 migrate:
 	${MANAGE} migrate
 
+.PHONY: beat
+beat:
+	PYTHONPATH=${PYTHONPATH} \
+	${RUN} celery worker \
+		--app periodic.app -B \
+		--config periodic.celeryconfig \
+		--workdir ${HERE}/src \
+		--loglevel=info
 
 .PHONY: su
 su:

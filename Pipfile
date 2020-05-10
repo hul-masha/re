@@ -16,6 +16,7 @@ line-profiler = "*"
 pudb = "*"
 
 [packages]
+celery = {extras = ["redis"],version = "*"}
 django = "*"
 whitenoise = "*"
 dj-database-url = "*"
