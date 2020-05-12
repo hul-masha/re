@@ -29,10 +29,9 @@ heroku:
     - .xgul.herokuapp.com
     - 127.0.0.1
     - localhost
-  CELERY_BEAT_INVITATION: 900
+  CELERY_BEAT_INVITATION: 90
   DEBUG: false
   PROFILING: 0
-  SITE_ID: 1
 
 test:
   EMAIL_FROM: "test@test.name"
