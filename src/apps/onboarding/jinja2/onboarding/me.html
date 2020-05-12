@@ -18,6 +18,10 @@
         <div class="grid">
             <p class="header">Login name:</p>
             <p>{{ user.username }}</p>
+            <p>If this is your first time on our site
+                and you didn't change your login name yet, your login name and password are the same</p>
+            {#<p class="header">Password:</p>
+            <p> {{user.password}}</p>#}
 
             <p class="header">E-mail:</p>
             <p>{{ user.email }}</p>
@@ -29,10 +33,11 @@
 
         <p>
             <a href="{{ url('onboarding:me_edit') }}">
-                <button class="button">Edit profile</button>
-            </a>
+                <button class="button">Edit profile </button>
+            </a>or
+        <a href="{{ url('onboarding:pwc') }}">
+            <button class="button" type="submit"> Go to Change Password</button></a>
         </p>
-
     </article>
 
 {% endblock %}

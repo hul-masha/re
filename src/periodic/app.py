@@ -6,8 +6,9 @@ from dynaconf import settings
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "project.settings")
 
 app = Celery()
-
-
+# dyno - для второго процесса на хероку
+# см procfile woker
+# а локально просто запускать через 2 консоли
 @app.on_after_configure.connect
 def setup_periodic_tasks(sender, **_kwargs):
     from periodic import tasks

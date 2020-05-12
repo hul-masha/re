@@ -18,8 +18,8 @@ def send_email(
     request: Optional[HttpRequest] = None,
 ):  # pragma: no cover
     request = request or HttpRequest()
-    template_txt = get_template(f"mail/txt/{mail_template_name}.txt")
-    template_html = get_template(f"mail/html/{mail_template_name}.html")
+    template_txt = get_template(f"txt/{mail_template_name}.txt")
+    template_html = get_template(f"html/{mail_template_name}.html")
 
     message_txt = template_txt.render(context, request)
     message_html = template_html.render(context, request)

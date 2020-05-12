@@ -30,7 +30,7 @@ class AuthProfile(models.Model):
             return None
 
         domain = self.site.domain
-        scheme = {"localhost": "http"}.get(domain, "https")
+        scheme = {"0.0.0.0:8000": "http"}.get(domain, "https")
 
         url = f"{scheme}://{domain}{self.get_absolute_url()}"
 

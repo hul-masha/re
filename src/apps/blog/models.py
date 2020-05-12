@@ -35,7 +35,13 @@ class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="comments")
     nr_likes = models.IntegerField(null=True, blank=True)
     nr_dislikes = models.IntegerField(null=True, blank=True)
-
+    parent = models.ForeignKey(
+        "Comment",
+        on_delete=models.CASCADE,
+        related_name="Comentsss",
+        blank=True,
+        null=True,
+    )
     message = models.TextField()
 
     def upvote(self):
