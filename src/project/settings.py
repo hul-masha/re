@@ -144,8 +144,8 @@ STATICFILES_DIRS = [
 
 STATIC_ROOT = REPO_DIR / ".static"  # место где хранится статика
 
-if not DEBUG:
-    STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+#if not DEBUG:
+ #   STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 if not DEBUG:
 
