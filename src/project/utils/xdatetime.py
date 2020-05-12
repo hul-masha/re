@@ -2,16 +2,16 @@ from datetime import date
 from datetime import datetime
 from typing import NamedTuple
 from typing import Optional
-from typing import Union
 
-import pytz
-import requests
 from delorean import Delorean
 from django.conf import settings
-from django.http import HttpRequest
 
-from project.utils.safeguards import safe
+# from django.http import HttpRequest
+# from typing import Union
 
+# import pytz
+# from project.utils.safeguards import safe
+# import requests
 # from ipware import get_client_ip
 
 
@@ -41,7 +41,7 @@ def get_user_tz(request: HttpRequest) -> Union[pytz.BaseTzInfo, None]:
     return pytz.timezone(tz_name)"""
 
 
-@safe
+"""@safe
 def retrieve_tz(ip: str):
     resp = requests.get(f"http://ip-api.com/json/{ip}")
     if resp.status_code != 200:
@@ -49,7 +49,7 @@ def retrieve_tz(ip: str):
 
     payload = resp.json()
     tz_name = payload.get("timezone")
-    return tz_name
+    return tz_name"""
 
 
 class DateDelta(NamedTuple):
