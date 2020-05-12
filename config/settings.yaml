@@ -32,6 +32,7 @@ heroku:
   CELERY_BEAT_INVITATION: 900
   DEBUG: false
   PROFILING: 0
+  SITE_ID: 1
 
 test:
   EMAIL_FROM: "test@test.name"
