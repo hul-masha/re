@@ -1,5 +1,4 @@
 from os import urandom
-from unittest import skip
 
 from django.test import Client
 from django.test import TestCase
@@ -11,7 +10,6 @@ from project.utils.xtest import ResponseTestMixin
 from project.utils.xtest import UserTestMixin
 
 
-@skip
 class Test(TestCase, ResponseTestMixin, UserTestMixin):
     def test_anon(self):
         placeholder = urandom(4).hex()
@@ -22,7 +20,7 @@ class Test(TestCase, ResponseTestMixin, UserTestMixin):
 
         self.validate_response(
             method="post",
-            url=f"/blog/posts/{post.pk}/comment/",
+            url=f"/blog/post/{post.pk}/comment/",
             expected_view=SignInView,
             expected_view_name="onboarding:sign_in",
             content_filters=(
@@ -48,13 +46,12 @@ class Test(TestCase, ResponseTestMixin, UserTestMixin):
         self.validate_response(
             client=client,
             method="post",
-            url=f"/blog/post/{post.pk}/",
+            url=f"/blog/post/{post.pk}/comment/",
             form_data={
                 "message": f"m_{placeholder}",
                 "author": user.pk,
                 "post": post.pk,
             },
-            expected_status_code=405,  # 200, FIX!!!!!
             expected_view=BlogPostView,
             expected_view_name="blog:post",
             content_filters=(
@@ -81,9 +78,9 @@ class Test(TestCase, ResponseTestMixin, UserTestMixin):
 
         self.validate_response(
             client=client,
-            url=f"/blog/post/{post.pk}/",
-            expected_status_code=200,  # 405, FIX!!!!!
+            url=f"/blog/post/{post.pk}/comment/",
+            expected_status_code=405,
             expected_view=BlogPostView,
-            expected_view_name="blog:post",
+            expected_view_name="blog:post",  # не проверяет тк код 405
             content_filters=(lambda _c: _c == b"",),
         )

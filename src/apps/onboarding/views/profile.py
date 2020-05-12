@@ -7,9 +7,11 @@ User = get_user_model()
 class ProfileView(TemplateView):
     template_name = "onboarding/me.html"
     extra_context = {
-        "File": ["index", "GUL MARIA", "index:index"],
-        "file2": ["resume:index", "Resume"],
-        "file3": ["thoughts:index", "Thoughts"],
+        "File": ["index", "Profile", "onboarding:index"],
+        "file5": ["resume:index", "Resume"],
+        "file2": ["thoughts:index", "Thoughts"],
+        "file4": ["blog:blog", "Blog"],
+        "file3": ["index:index", "Home"],
     }
 
     def get_context_data(self, **kwargs):

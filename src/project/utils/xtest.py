@@ -137,7 +137,7 @@ class ResponseTestMixin:
             )
 
 
-class ApiTestMixin:
+"""class ApiTestMixin:
     def validate_response(
         self,
         url: str,
@@ -161,4 +161,4 @@ class ApiTestMixin:
 
         if expected_response_payload is not None:
             payload = resp.json()
-            self.assertEqual(expected_response_payload, payload)
+            self.assertEqual(expected_response_payload, payload)"""

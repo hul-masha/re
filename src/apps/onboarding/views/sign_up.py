@@ -11,9 +11,11 @@ class SignUpView(FormView):
     form_class = SignUpForm
     success_url = reverse_lazy("onboarding:sign_up_confirmed")
     extra_context = {
-        "File": ["index", "GUL MARIA", "index:index"],
-        "file2": ["resume:index", "Resume"],
-        "file3": ["thoughts:index", "Thoughts"],
+        "File": ["index", "Profile", "onboarding:index"],
+        "file5": ["resume:index", "Resume"],
+        "file2": ["thoughts:index", "Thoughts"],
+        "file4": ["blog:blog", "Blog"],
+        "file3": ["index:index", "Home"],
     }
 
     @transaction.atomic()

@@ -12,9 +12,11 @@ class AllBlogPostView(ListView):
     template_name = "blog/blog.html"
     model = Post
     extra_context = {
-        "File": ["index", "GUL MARIA", "index:index"],
-        "file2": ["resume:index", "Resume"],
-        "file3": ["thoughts:index", "Thoughts"],
+        "File": ["index", "Blog", "blog:blog"],
+        "file5": ["resume:index", "Resume"],
+        "file2": ["thoughts:index", "Thoughts"],
+        "file3": ["index:index", "Home"],
+        "file4": ["onboarding:index", "Profile"],
     }
 
 
@@ -22,9 +24,11 @@ class BlogPostView(DetailView):
     template_name = "blog/post.html"
     model = Post
     extra_context = {
-        "File": ["index", "GUL MARIA", "index:index"],
-        "file2": ["resume:index", "Resume"],
-        "file3": ["thoughts:index", "Thoughts"],
+        "File": ["index", "Blog", "blog:blog"],
+        "file5": ["resume:index", "Resume"],
+        "file2": ["thoughts:index", "Thoughts"],
+        "file3": ["index:index", "Home"],
+        "file4": ["onboarding:index", "Profile"],
     }
 
     def get_context_data(self, **kwargs):
@@ -38,11 +42,12 @@ class BlogPostView(DetailView):
 
 
 class CommentView(LoginRequiredMixin, CreateView):
-    extra_context = {
+    """extra_context = {
         "File": ["index", "GUL MARIA", "index:index"],
         "file2": ["resume:index", "Resume"],
         "file3": ["thoughts:index", "Thoughts"],
-    }
+    }"""
+
     form_class = CommentForm
     http_method_names = ["post"]
 
