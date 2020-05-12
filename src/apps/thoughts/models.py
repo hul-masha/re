@@ -1,4 +1,4 @@
-from django.db import models as m
+'''from django.db import models as m
 
 
 class Post(m.Model):
@@ -103,4 +103,4 @@ class Comment(m.Model):
     like = m.IntegerField(null=True, blank=True)
 
     def __str__(self):
-        return f"#Comment{self.pk} -> {self.message}: {self.author})"
+        return f"#Comment{self.pk} -> {self.message}: {self.author})"'''

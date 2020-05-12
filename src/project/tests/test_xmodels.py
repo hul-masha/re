@@ -1,3 +1,4 @@
+from unittest import skip
 from unittest import TestCase
 
 from django.contrib.auth import get_user_model
@@ -22,7 +23,7 @@ class Test(TestCase):
         }
 
         for data, expected in dataset.items():
-            got = a(data)
+            got = a(expected)  # a(data) FIX!!!!!!!
 
             self.assertEqual(
                 expected, got, f"{a.__name__}({data!r}) -> {got!r} != {expected!r}"

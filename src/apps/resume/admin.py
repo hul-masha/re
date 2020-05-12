@@ -29,4 +29,4 @@ class ProjectAdminModel(ModelAdmin):
 
 @admin.register(Firm)
 class FirmAdminModel(ModelAdmin):
-    form = gen_textinput_admin_form(Project, (Firm.name,))
+    form = gen_textinput_admin_form(Project, ("name",))  # (Firm.name,))

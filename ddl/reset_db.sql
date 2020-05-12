@@ -1,0 +1,3 @@
+DROP DATABASE IF EXISTS "test_tmssite";
+DROP DATABASE IF EXISTS "tmssite";
+CREATE DATABASE "tmssite";

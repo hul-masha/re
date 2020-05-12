@@ -1,0 +1,43 @@
+{% extends "anon.html" %}
+
+{% block title %}Profile{% endblock %}
+
+{% block header %}{% endblock %}
+
+{% block main_allowed %}
+<br><br>
+<br><br><br><br>
+    <article>
+
+        <h2>It's you!</h2>
+
+        {% if newbie_alert %}
+            <p><strong>{{ newbie_alert }}</strong></p>
+        {% endif %}
+
+        <div class="grid">
+            <p class="header">Login name:</p>
+            <p>{{ user.username }}</p>
+            <p>If this is your first time on our site
+                and you didn't change your login name yet, your login name and password are the same</p>
+            {#<p class="header">Password:</p>
+            <p> {{user.password}}</p>#}
+
+            <p class="header">E-mail:</p>
+            <p>{{ user.email }}</p>
+
+            <p class="header">Display name:</p>
+            <p>{{ profile.name }}</p>
+
+        </div>
+
+        <p>
+            <a href="{{ url('onboarding:me_edit') }}">
+                <button class="button">Edit profile </button>
+            </a>or
+        <a href="{{ url('onboarding:pwc') }}">
+            <button class="button" type="submit"> Go to Change Password</button></a>
+        </p>
+    </article>
+
+{% endblock %}

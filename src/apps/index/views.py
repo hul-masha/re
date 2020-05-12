@@ -20,6 +20,8 @@ class IndexView(TemplateView):
         "File": ["index", "GUL MARIA", "index:index"],
         "file2": ["resume:index", "Resume"],
         "file3": ["thoughts:index", "Thoughts"],
+        "file4": ["blog:blog", "Blog"],
+        "file5": ["onboarding:index", "Profile"],
     }
 
     def get_context_data(self, **kwargs):

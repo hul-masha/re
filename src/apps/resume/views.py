@@ -11,9 +11,11 @@ from apps.resume.models.project import Project
 class IndexView(ListView):  # TemplateView
     template_name = "resume/index.html"
     extra_context = {
-        "File": ["resume", "RESUME", "resume:index"],
-        "file2": ["thoughts:index", "Thoughts"],
+        "File": ["index", "Resume", "resume:index"],
         "file3": ["index:index", "Home"],
+        "file2": ["thoughts:index", "Thoughts"],
+        "file4": ["blog:blog", "Blog"],
+        "file5": ["onboarding:index", "Profile"],
     }
     model = Project  ##queryset = Project.objects.filter(is_hidden=False)
 

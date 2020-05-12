@@ -1,22 +1,38 @@
 BRANCH := $(shell git branch --quiet --no-color | grep '*' | sed -e 's/^\*\ //g')
 HERE := $(shell pwd)
-UNTRACKED := $(shell git status --short | grep -e '^[ ?]' | wc -l | sed -e 's/\ *//g')
-UNTRACKED2 := $(shell git status --short | awk '{print substr($$0, 2, 2)}' | grep -e '\w\+' | wc -l | sed -e 's/\ *//g')
 VENV := $(shell pipenv --venv)
 ash := asham
 data := tmssite
+PYTHONPATH := ${HERE}/src
+TEST_PARAMS := --verbosity 2 --pythonpath "${PYTHONPATH}"
+PSQL_PARAMS := --host=localhost --username=asham --password
+
+ifeq ($(origin PIPENV_ACTIVE), undefined)
+	RUN := pipenv run
+endif
+
+ifeq ($(ENV_FOR_DYNACONF), travis)
+	RUN :=
+	TEST_PARAMS := --failfast --keepdb --verbosity 1 --pythonpath ${PYTHONPATH}
+	PSQL_PARAMS := --host=localhost --username=postgres --no-password
+else ifeq ($(ENV_FOR_DYNACONF), heroku)
+	RUN :=
+endif
+
 ifeq ($(origin ENV_FOR_DYNACONF), undefined)
 		ENV_FOR_DYNACONF=test
 endif
 
+MANAGE := ${RUN} python src/manage.py
+
 .PHONY: format
 format:
-	pipenv run isort --virtual-env ${VENV} --recursive --apply ${HERE} -vb
-	pipenv run black ${HERE}
+	${RUN} isort --virtual-env ${VENV} --recursive --apply ${HERE}
+	${RUN} black ${HERE}
 
 .PHONY: sh
 sh:
-	pipenv run python src/manage.py shell
+	${MANAGE} shell
 
 .PHONY: psql
 psql:
@@ -24,57 +40,68 @@ psql:
 
 .PHONY: run
 run: static
-	 pipenv run python src/manage.py runserver
+	 ${MANAGE} runserver 0.0.0.0:8000
 
 .PHONY: static
 static:
-	pipenv run python src/manage.py collectstatic --noinput --clear -v0
+	${MANAGE} collectstatic --noinput --clear -v0
 
 .PHONY: migrations
 migrations:
-	pipenv run python src/manage.py makemigrations
+	${MANAGE} makemigrations
 
 
 .PHONY: migrate
 migrate:
-	pipenv run python src/manage.py migrate
+	${MANAGE} migrate
 
+.PHONY: beat
+beat:
+	PYTHONPATH=${PYTHONPATH} \
+	${RUN} celery worker \
+		--app periodic.app -B \
+		--config periodic.celeryconfig \
+		--workdir ${HERE}/src \
+		--loglevel=info
 
 .PHONY: su
 su:
-	pipenv run python src/manage.py createsuperuser
+	${MANAGE} createsuperuser
 
 .PHONY: test
 test:
-	ENV_FOR_DYNACONF=${ENV_FOR_DYNACONF} \
-	pipenv run \
-		coverage run \
-			src/manage.py test -v2 \
+	ENV_FOR_DYNACONF=test \
+	${RUN} coverage run \
+		src/manage.py test ${TEST_PARAMS} \
 				apps \
 				project \
 
-	pipenv run coverage report
-	pipenv run isort --virtual-env ${VENV} --recursive --check-only ${HERE}
-	pipenv run black --check ${HERE}
+	${RUN} coverage report
+	${RUN} isort --virtual-env ${VENV} --recursive --check-only ${HERE}
+	${RUN} black --check ${HERE}
 
 
 
 
 .PHONY: report
 report:
-	pipenv run coverage html --directory=${HERE}/htmlcov --fail-under=0
+	${RUN} coverage html --directory=${HERE}/htmlcov --fail-under=0
 	open "${HERE}/htmlcov/index.html"
 
-.PHONY: deploy
-deploy: format test clean
-	@echo 'test branch...'
-	test "${BRANCH}" = "master"
-	@echo 'test untracked...'
-	test "${UNTRACKED}" = "0"
-	@echo 'test untracked 2...'
-	test "${UNTRACKED2}" = "0"
-	git commit --gpg-sign --signoff --message "autodeploy @ $(shell date)" --edit
-	git push origin master
+#.PHONY: deploy
+#deploy: format test clean
+#	@echo 'test branch...'
+#	test "${BRANCH}" = "master"
+#	@echo 'test untracked...'
+#	test "${UNTRACKED}" = "0"
+#	@echo 'test untracked 2...'
+#	test "${UNTRACKED2}" = "0"
+#	git commit --gpg-sign --signoff --message "autodeploy @ $(shell date)" --edit
+#	git push origin master
+
+.PHONY: venv
+venv:
+	pipenv install --dev
 
 .PHONY: install
 install:
@@ -82,7 +109,7 @@ install:
 
 .PHONY: clean
 clean:
-	pipenv run coverage erase
+	${RUN} coverage erase
 	rm -rf htmlcov
 	find . -type d -name "__pycache__" | xargs rm -rf
 	rm -rf ./.static/
@@ -90,3 +117,16 @@ clean:
 .PHONY: t
 t:
 	pipenv run python src/recompile_templates.py
+
+.PHONY: resetdb
+resetdb:
+	psql ${PSQL_PARAMS} \
+		--dbname=postgres \
+		--echo-all \
+		--file=${HERE}/ddl/reset_db.sql \
+		--no-psqlrc \
+		--no-readline \
+
+
+.PHONY: initdb
+initdb: resetdb migrate

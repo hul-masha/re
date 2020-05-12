@@ -9,8 +9,14 @@ httpie = "*"
 codecov = "*"
 coverage = "*"
 isort = "*"
+django-silk = "*"
+freezegun = "*"
+ipython = "*"
+line-profiler = "*"
+pudb = "*"
 
 [packages]
+celery = {extras = ["redis"],version = "*"}
 django = "*"
 whitenoise = "*"
 dj-database-url = "*"
