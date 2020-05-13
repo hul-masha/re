@@ -61,7 +61,7 @@ beat:
 	${RUN} celery worker \
 		--app periodic.app -B \
 		--config periodic.celeryconfig \
-		--workdir ${HERE}/src \
+		--workdir ${HERE}/ \
 		--loglevel=info
 
 .PHONY: su
