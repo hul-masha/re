@@ -23,7 +23,7 @@ class Test(TestCase):
         }
 
         for data, expected in dataset.items():
-            got = a(expected)  # a(data) FIX!!!!!!!
+            got = a(data)
 
             self.assertEqual(
                 expected, got, f"{a.__name__}({data!r}) -> {got!r} != {expected!r}"

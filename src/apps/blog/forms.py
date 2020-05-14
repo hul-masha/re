@@ -11,8 +11,9 @@ class CommentForm(forms.ModelForm):
             a(Comment.author): forms.HiddenInput,
             a(Comment.post): forms.HiddenInput,
         }
-        fields = [
+        fields = [a(_f) for _f in (Comment.author, Comment.message, Comment.post)]
+        """[
             "author",
             "message",
             "post",
-        ]  # [a(_f) for _f in (Comment.author, Comment.message, Comment.post)]
+        ] """  # [a(_f) for _f in (Comment.author, Comment.message, Comment.post)]

@@ -13,23 +13,23 @@ def a(obj) -> Text:
     return str(obj)
 
 
-@a.register
-def _(obj: DeferredAttribute) -> Text:
-    if django.VERSION[0] < 3:  # pragma: nocover
+@a.register(DeferredAttribute)
+def _(obj: DeferredAttribute) -> Text:  # фурычит только с 3.7
+    if django.VERSION[0] < 3:  # pragma: no cover
         return obj.field_name
     return obj.field.get_attname()
 
 
-@a.register
+@a.register(ForwardManyToOneDescriptor)
 def _(obj: ForwardManyToOneDescriptor) -> Text:
     return obj.field.name
 
 
-@a.register
+@a.register(ManyToManyDescriptor)
 def _(obj: ManyToManyDescriptor) -> Text:
     return obj.field.name
 
 
-@a.register
+@a.register(ModelBase)
 def _(obj: ModelBase) -> Text:
     return obj._meta.db_table
