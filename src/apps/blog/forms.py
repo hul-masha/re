@@ -4,7 +4,7 @@ from apps.blog.models import Comment
 from project.utils.xmodels import a
 
 
-class CommentForm(forms.ModelForm):
+class ComentForm(forms.ModelForm):
     class Meta:
         model = Comment
         widgets = {

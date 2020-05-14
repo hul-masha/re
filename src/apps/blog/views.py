@@ -4,7 +4,7 @@ from django.views.generic import CreateView
 from django.views.generic import DetailView
 from django.views.generic import ListView
 
-from apps.blog.forms import CommentForm
+from apps.blog.forms import ComentForm
 from apps.blog.models import Post
 
 
@@ -34,7 +34,7 @@ class BlogPostView(DetailView):
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
         if self.request.user.is_authenticated:
-            ctx["form"] = CommentForm(
+            ctx["form"] = ComentForm(
                 initial={"post": self.object, "author": self.request.user}
             )
 
@@ -48,7 +48,7 @@ class CommentView(LoginRequiredMixin, CreateView):
         "file3": ["thoughts:index", "Thoughts"],
     }"""
 
-    form_class = CommentForm
+    form_class = ComentForm
     http_method_names = ["post"]
 
     def get_success_url(self):
