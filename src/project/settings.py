@@ -22,45 +22,42 @@ ALLOWED_HOSTS = _settings.ALLOWED_HOSTS + ["localhost", "127.0.0.1", "0.0.0.0"]
 INTERNAL_IPS = [
     "127.0.0.1",
 ]
+INSTALLED_APPS_DICT = {
+    0: "django.contrib.admin",
+    1: "django.contrib.auth",
+    2: "django.contrib.contenttypes",
+    3: "django.contrib.sessions",
+    4: "django.contrib.messages",
+    7: "django.contrib.sites",
+    10: "django.contrib.staticfiles",
+    11: "apps.onboarding.apps.OnboardingConfig",
+    12: "apps.index.apps.IndexConfig",
+    13: "apps.resume",
+    14: "apps.thoughts.apps.ThoughtsConfig",
+    15: "apps.blog.apps.BlogConfig",
+}
+if PROFILING:
+    INSTALLED_APPS_DICT[6] = "silk"
+INSTALLED_APPS = [app for _, app in sorted(INSTALLED_APPS_DICT.items())]
 
-INSTALLED_APPS = [
-    "django.contrib.admin",
-    "django.contrib.auth",
-    "django.contrib.contenttypes",
-    "django.contrib.sessions",
-    "django.contrib.messages",
-    "django.contrib.sites",
-    # "silk", #убрать перед тестами
-    "django.contrib.staticfiles",
-    "apps.onboarding.apps.OnboardingConfig",
-    "apps.index.apps.IndexConfig",
-    "apps.resume",
-    "apps.thoughts.apps.ThoughtsConfig",
-    "apps.blog.apps.BlogConfig",
-]
-
-# if PROFILING:
-#   INSTALLED_APPS.append("silk")
-
-
-MIDDLEWARE = [
-    # "silk.middleware.SilkyMiddleware",#убрать перед тестами
-    "django.middleware.security.SecurityMiddleware",
-    "whitenoise.middleware.WhiteNoiseMiddleware",
-    "django.contrib.sessions.middleware.SessionMiddleware",
-    "django.middleware.common.CommonMiddleware",
-    "django.middleware.csrf.CsrfViewMiddleware",
-    "django.contrib.auth.middleware.AuthenticationMiddleware",
-    "django.contrib.messages.middleware.MessageMiddleware",
-    "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "django.contrib.sites.middleware.CurrentSiteMiddleware",
-]
+MIDDLEWARE_DICT = {
+    0: "django.middleware.security.SecurityMiddleware",
+    1: "whitenoise.middleware.WhiteNoiseMiddleware",
+    2: "django.contrib.sessions.middleware.SessionMiddleware",
+    3: "django.middleware.common.CommonMiddleware",
+    4: "django.middleware.csrf.CsrfViewMiddleware",
+    5: "django.contrib.auth.middleware.AuthenticationMiddleware",
+    6: "django.contrib.messages.middleware.MessageMiddleware",
+    7: "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    9: "django.contrib.sites.middleware.CurrentSiteMiddleware",
+}
 
 if PROFILING:
-    # MIDDLEWARE=["silk.middleware.SilkyMiddleware"]+MIDDLEWARE
+    MIDDLEWARE_DICT[8] = "silk.middleware.SilkyMiddleware"
     SILKY_PYTHON_PROFILER = True
     SILKY_PYTHON_PROFILER_BINARY = True
 
+MIDDLEWARE = [mw for _, mw in sorted(MIDDLEWARE_DICT.items())]
 
 ROOT_URLCONF = "project.urls"
 
