@@ -3,6 +3,7 @@ from django.db import models
 from django.urls import reverse_lazy
 
 User = get_user_model()
+zh, k = [], 1
 
 
 class Post(models.Model):
@@ -57,3 +58,77 @@ class Comment(models.Model):
 
         self.nr_dislikes += 1
         self.save()
+
+    """@property
+    def have_child(self):
+        for p in Comment.objects.all():
+            try:
+                if p.parent == self:
+                    return True
+            except:
+                ...
+        return False"""
+
+    """def brothers(self):
+        z, l = [], self
+        for p in Comment.objects.all():
+            try:
+                if p.parent == l.parent:
+                    z.append(p)
+            except:
+                ...
+        return z"""
+
+    @property
+    def have_parent(self):
+        try:
+            if self.parent:
+                return True
+        except:
+            return False
+
+    @property
+    def print_parent(self):
+        z, l = [], self
+        z.append(l)
+        try:
+            while l.parent:
+                l = l.parent
+                z.append(l)
+            return z
+        except AttributeError:
+            z = [l]
+            return z
+
+    @property
+    def print_first_childrens(self):
+        z, l = [], self
+        for p in Comment.objects.all():
+            try:
+                if p.parent == l:
+                    z.append(p)
+                    # Comment.zh.append(p)
+                    # Comment.print_first_childrens(p)
+            except:
+                ...
+        return z  # Comment.zh
+
+    # @property
+    def print_all_child(self, k=k, zh=[]):
+        zh = []
+        x = self.print_first_childrens
+        for p in x:  # Comment.objects.all():
+            try:
+                zh.append((k, p))
+                zh.extend([(k + 1, i) for i in p.print_first_childrens])
+            # for i in p.print_first_childrens:
+            #    k+=1
+            #   i.print_all_child(k,zh)
+            # zh.append((k, p))
+            # Comment.zh.append(p)
+            # zh.extend([(k+1,Comment.print_first_childrens(p)), k+1))
+            # Comment.print_all_child(p,k+1)
+            # k+=1
+            except:
+                ...
+        return zh  # Comment.zh

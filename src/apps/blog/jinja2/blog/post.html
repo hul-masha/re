@@ -16,14 +16,18 @@
         {% endif %}
         {% for comment in object.comments.all() %}
             <section>
-                <p><i>{{ comment.author.profile.name }}:-{{ comment.message }}</i></p>
+                {% if not comment.have_parent %}
+                <p><i>{{ comment.author.profile.name }}:-{{ comment.message }}      {#,  {{comment.pk}} #}
 
+                    <a href="{{ url('blog:comments' , kwargs={'pk': comment.pk})}}">...</a>
+                </i></p>
+                {% endif %}
             </section>
         {% endfor %}
         {% if not user.is_authenticated %}
-            <p><a href="{{ url("onboarding:index") }}">Sign in</a> to leave a comment.</p>
+            <p><a href="{{ url('onboarding:index') }}">Sign in</a> to leave a comment.</p>
         {% else %}
-            <form action="{{ url("blog:comment", kwargs={"pk": object.pk}) }}" method="post">
+            <form action="{{ url('blog:comment', kwargs={'pk': object.pk}) }}" method="post">
                 {{ form.as_p() }}
                 <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
                 <button type="submit">Comment</button>

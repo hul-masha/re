@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}My page comment{% endblock %}
+
+{% block header %}{% endblock %}
+{% block main %}
+<br><br>
+<br><br>
+<br><br>
+{% set k=object.print_parent|length %}
+<h1><a href="{{ url('blog:post', kwargs={'pk': object.post.pk}) }}">{{object.post.title}}</a></h1>
+{% if user.is_authenticated %}
+      <h2>You can answer to <a href="{{ url('blog:comments' , kwargs={'pk': object.pk})}}">{{object.author}}: {{object.message}}</a></h2>
+<form action="{{ url('blog:for_comments', kwargs={'pk': object.pk}) }}" method="post">
+                {{ form.as_p() }}
+                <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+                <button type="submit">Comment</button>
+            </form> <br>
+{% endif %}
+      {% for obj in object.print_parent[::-1] %}
+      {#<p>{{object.print_parent[::-1]}}</p>#}
+      <p> {{' - '*object.print_parent[::-1].index(obj)}}{{obj.author}}: {{obj.message}}
+        <a href="{{ url('blog:comments' , kwargs={'pk': obj.pk})}}">Answers</a></p>
+         {#   {% for ob in obj.print_first_childrens %}
+           {% set i=object.print_parent[::-1].index(obj)+1 %}
+         <p> {{' - '*i}}{{ob.author}}: {{ob.message}}
+        <a href="{{ url('blog:comments' , kwargs={'pk': ob.pk})}}">Answers</a></p>
+{% endfor %}#}
+{% endfor %}
+{% if object.print_first_childrens==[] %}
+   <p>{{' - '*(k+1)}}No one replied to this comment. You can be the first!</p>
+
+{% else %}
+{#{% for obj in object.print_first_childrens %}
+<p>{{object.print_all_child()}}</p>#}
+{% for obj in object.print_all_child() %}
+       <p>{{' - '*(obj[0]+k-1)}}{{obj[1].author}}: {{obj[1].message}}
+
+       <a href="{{ url('blog:comments' , kwargs={'pk': obj[1].pk})}}">Answers</a>
+       </p>
+{% endfor %}
+{% endif %}
+{% if not user.is_authenticated %}
+            <p><a href="{{ url('onboarding:index') }}">Sign in</a> to leave a comment.</p>
+    {% endif %}
+{% endblock %}
