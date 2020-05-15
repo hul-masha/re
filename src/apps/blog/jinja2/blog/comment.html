@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}My page comment{% endblock %}
+
+{% block header %}{% endblock %}
+{% block main %}
+<br><br>
+<br><br>
+<br><br>
+{% set k=object.print_parent|length %}
+<h1><a href="{{ url('blog:post', kwargs={'pk': object.post.pk}) }}">{{object.post.title}}</a></h1>
+      <h2><a href="{{ url('blog:comments' , kwargs={'pk': object.pk})}}">{{object.author}}: {{object.message}}</a></h2>
+
+<form action="{{ url('blog:for_comments', kwargs={'pk': object.pk}) }}" method="post">
+                {{ form.as_p() }}
+                <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+                <button type="submit">Comment</button>
+            </form> <br>
+
+      {% for obj in object.print_parent[::-1] %}
+      {#<p>{{object.print_parent[::-1]}}</p>#}
+      <p> {{' - '*object.print_parent[::-1].index(obj)}}{{obj.author}}: {{obj.message}}
+        <a href="{{ url('blog:comments' , kwargs={'pk': obj.pk})}}">Answers</a></p>
+{% endfor %}
+
+{% for obj in object.print_first_childrens %}
+       <p>{{' - '*k}}{{obj.author}}: {{obj.message}}
+
+       <a href="{{ url('blog:comments' , kwargs={'pk': obj.pk})}}">Answers</a>
+       </p>
+{% endfor %}
+
+{% endblock %}

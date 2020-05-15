@@ -57,3 +57,45 @@ class Comment(models.Model):
 
         self.nr_dislikes += 1
         self.save()
+
+    """@property
+    def have_child(self):
+        for p in Comment.objects.all():
+            try:
+                if p.parent == self:
+                    return True
+            except:
+                ...
+        return False"""
+
+    @property
+    def have_parent(self):
+        try:
+            if self.parent:
+                return True
+        except:
+            return False
+
+    @property
+    def print_parent(self):
+        z, l = [], self
+        z.append(l)
+        try:
+            while l.parent:
+                l = l.parent
+                z.append(l)
+            return z
+        except AttributeError:
+            z = [l]
+            return z
+
+    @property
+    def print_first_childrens(self):
+        z, l = [], self
+        for p in Comment.objects.all():
+            try:
+                if p.parent == l:
+                    z.append(p)
+            except:
+                ...
+        return z

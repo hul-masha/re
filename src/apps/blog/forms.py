@@ -10,8 +10,13 @@ class ComentForm(forms.ModelForm):
         widgets = {
             a(Comment.author): forms.HiddenInput,
             a(Comment.post): forms.HiddenInput,
+            a(Comment.parent): forms.HiddenInput,
+            a(Comment.message): forms.TextInput(attrs={"size": "30"}),
         }
-        fields = [a(_f) for _f in (Comment.author, Comment.message, Comment.post)]
+        fields = [
+            a(_f)
+            for _f in (Comment.author, Comment.message, Comment.post, Comment.parent)
+        ]
         """[
             "author",
             "message",
