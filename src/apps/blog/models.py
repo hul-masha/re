@@ -3,6 +3,7 @@ from django.db import models
 from django.urls import reverse_lazy
 
 User = get_user_model()
+zh, k = [], 1
 
 
 class Post(models.Model):
@@ -68,6 +69,16 @@ class Comment(models.Model):
                 ...
         return False"""
 
+    """def brothers(self):
+        z, l = [], self
+        for p in Comment.objects.all():
+            try:
+                if p.parent == l.parent:
+                    z.append(p)
+            except:
+                ...
+        return z"""
+
     @property
     def have_parent(self):
         try:
@@ -96,6 +107,28 @@ class Comment(models.Model):
             try:
                 if p.parent == l:
                     z.append(p)
+                    # Comment.zh.append(p)
+                    # Comment.print_first_childrens(p)
             except:
                 ...
-        return z
+        return z  # Comment.zh
+
+    # @property
+    def print_all_child(self, k=k, zh=[]):
+        zh = []
+        x = self.print_first_childrens
+        for p in x:  # Comment.objects.all():
+            try:
+                zh.append((k, p))
+                zh.extend([(k + 1, i) for i in p.print_first_childrens])
+            # for i in p.print_first_childrens:
+            #    k+=1
+            #   i.print_all_child(k,zh)
+            # zh.append((k, p))
+            # Comment.zh.append(p)
+            # zh.extend([(k+1,Comment.print_first_childrens(p)), k+1))
+            # Comment.print_all_child(p,k+1)
+            # k+=1
+            except:
+                ...
+        return zh  # Comment.zh

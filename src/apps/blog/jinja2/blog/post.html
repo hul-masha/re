@@ -18,7 +18,9 @@
             <section>
                 {% if not comment.have_parent %}
                 <p><i>{{ comment.author.profile.name }}:-{{ comment.message }}      {#,  {{comment.pk}} #}
-                <a href="{{ url('blog:comments' , kwargs={'pk': comment.pk})}}">...</a></i></p>
+
+                    <a href="{{ url('blog:comments' , kwargs={'pk': comment.pk})}}">...</a>
+                </i></p>
                 {% endif %}
             </section>
         {% endfor %}
