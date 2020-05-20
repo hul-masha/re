@@ -130,3 +130,21 @@ resetdb:
 
 .PHONY: initdb
 initdb: resetdb migrate
+
+.PHONY: docker
+docker: wipe
+	docker-compose build
+
+.PHONY: docker-run
+docker-run: docker
+	docker-compose up
+
+.PHONY: clean-docker
+clean-docker:
+	docker ps --quiet --all | xargs docker stop || true
+	docker ps --quiet --all | xargs docker rm || true
+	docker volume ls --quiet | xargs docker volume rm || true
+	docker-compose rm --force || true
+
+.PHONY: wipe
+wipe: clean clean-docker
