@@ -27,7 +27,7 @@ development:
 docker:
   CELERY_BEAT_INVITATION: 30
   CELERY_BROKER_URL: "redis://m-dev-broker"
-  DATABASE_URL: "postgresql://asham:02102000@m-dev-db:5432/m-dev"
+  DATABASE_URL: "postgresql://asham:asham@m-dev-db:5432/m-dev"
   MODE_CACHING: 0
   MODE_DEBUG: 0
   MODE_PROFILING: 0
