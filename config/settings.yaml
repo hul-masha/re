@@ -16,6 +16,7 @@ default:
   SECRET_KEY: ""
   SENTRY_DSN: ""
   SITE_ID: 0
+  PRE_COMPILE: true
 
 development:
   CELERY_BEAT_INVITATION: 30
@@ -23,6 +24,7 @@ development:
   PROFILING: 0
   SECRET_KEY: "1"
   SITE_ID: 0
+  PRE_COMPILE: false
 
 docker:
   CELERY_BEAT_INVITATION: 30
@@ -33,6 +35,7 @@ docker:
   MODE_PROFILING: 0
   SECRET_KEY: "1"
   SITE_ID: 1
+  PRE_COMPILE: false
 
 heroku:
   ALLOWED_HOSTS:
@@ -42,6 +45,7 @@ heroku:
   CELERY_BEAT_INVITATION: 90
   DEBUG: false
   PROFILING: 0
+  PRE_COMPILE: true
 
 test:
   EMAIL_FROM: "test@test.name"
@@ -49,6 +53,7 @@ test:
   PROFILING: 0
   SECRET_KEY: "1"
   SITE_ID: 1
+  PRE_COMPILE: true
 
 travis:
   EMAIL_FROM: "test@test.name"
@@ -56,3 +61,4 @@ travis:
   PROFILING: 0
   SECRET_KEY: "1"
   SITE_ID: 1
+  PRE_COMPILE: true

@@ -4,7 +4,8 @@ WORKDIR /app/
 
 ADD ./ ./
 
-RUN docker/deploy-web.sh
+RUN sed -i -e 's/\r$//' docker/run-beat.sh &&\
+    docker/deploy-web.sh
 
 EXPOSE 80
 
