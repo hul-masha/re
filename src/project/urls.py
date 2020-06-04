@@ -16,6 +16,7 @@ urlpatterns = [
     path("thoughts/", include("apps.thoughts.urls")),
     path("blog/", include("apps.blog.urls")),
     path("o/", include("apps.onboarding.urls")),
+    path("api/", include("apps.api.urls")),
     # path('re/', view, name="re"),
     # path('tho/', view, name="tho"),
     # path('index.html', include("apps.index.urls")), #view),

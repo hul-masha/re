@@ -36,11 +36,14 @@ INSTALLED_APPS_DICT = {
     7: "django.contrib.sites",
     8: "storages",
     10: "django.contrib.staticfiles",
-    11: "apps.onboarding.apps.OnboardingConfig",
-    12: "apps.index.apps.IndexConfig",
-    13: "apps.resume",
-    14: "apps.thoughts.apps.ThoughtsConfig",
-    15: "apps.blog.apps.BlogConfig",
+    11: "rest_framework",
+    12: "rest_framework.authtoken",
+    21: "apps.onboarding.apps.OnboardingConfig",
+    22: "apps.index.apps.IndexConfig",
+    23: "apps.resume",
+    24: "apps.thoughts.apps.ThoughtsConfig",
+    25: "apps.blog.apps.BlogConfig",
+    26: "apps.api.apps.ApiConfig",
 }
 if PROFILING:
     INSTALLED_APPS_DICT[6] = "silk"
