@@ -1,9 +1,10 @@
 from django.conf import settings
 from django.templatetags.static import static
 from django.urls import reverse
+from dynaconf import settings as _settings
 from jinja2 import Environment
 from jinja2 import ModuleLoader
-from dynaconf import settings as _settings
+
 # Compile template
 # Environment(loader=FileSystemLoader('foopkg/templates'))\
 #   .compile_templates("foopkg/compiled/foopkg.zip")

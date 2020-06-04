@@ -1,6 +1,8 @@
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.urls import reverse_lazy
+import uuid
+from storages.backends.s3boto3 import S3Boto3Storage
 
 User = get_user_model()
 zh, k = [], 1
@@ -132,3 +134,8 @@ class Comment(models.Model):
             except:
                 ...
         return zh  # Comment.zh
+
+class Photo(models.Model):
+    uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="photos")
+    original = models.FileField(storage=S3Boto3Storage())

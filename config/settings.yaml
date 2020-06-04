@@ -1,5 +1,9 @@
 default:
   ALLOWED_HOSTS: []
+  AWS_ACCESS_KEY_ID: ""
+  AWS_LOCATION: ""
+  AWS_S3_REGION_NAME:  "us-east-1"
+  AWS_SECRET_ACCESS_KEY: ""
   CELERY_BEAT_INVITATION: -1
   CELERY_BROKER_URL: ""
   DATABASE_URL: ""
@@ -19,6 +23,7 @@ default:
   PRE_COMPILE: true
 
 development:
+  AWS_LOCATION: "development"
   CELERY_BEAT_INVITATION: 30
   DEBUG: true
   PROFILING: 0
@@ -27,6 +32,7 @@ development:
   PRE_COMPILE: false
 
 docker:
+  AWS_LOCATION: "docker"
   CELERY_BEAT_INVITATION: 30
   CELERY_BROKER_URL: "redis://m-dev-broker"
   DATABASE_URL: "postgresql://asham:asham@m-dev-db:5432/m-dev"
@@ -38,6 +44,7 @@ docker:
   PRE_COMPILE: false
 
 heroku:
+  AWS_LOCATION: "heroku"
   ALLOWED_HOSTS:
     - .xgul.herokuapp.com
     - 127.0.0.1
