@@ -12,22 +12,22 @@ User = get_user_model()
 
 
 class UserViewSet(ReadOnlyModelViewSet):
-   # permission_classes = (IsAuthenticated,)
+    # permission_classes = (IsAuthenticated,)
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
 
 class PhotoViewSet(ModelViewSet):
-   # permission_classes = (IsAuthenticated,)
+    # permission_classes = (IsAuthenticated,)
     queryset = Photo.objects.all()
     serializer_class = PhotoSerializer
 
-    #def get_queryset(self):
-     #   criteria = Q(creator=self.request.user) | Q(
-      #      participants__in=[self.request.user]
-       # )
-        #return Reminder.objects.filter(criteria)
+    # def get_queryset(self):
+    #   criteria = Q(creator=self.request.user) | Q(
+    #      participants__in=[self.request.user]
+    # )
+    # return Reminder.objects.filter(criteria)
 
-   # def perform_create(self, serializer):
-    #    serializer.save(creator=self.request.user)
 
+# def perform_create(self, serializer):
+#    serializer.save(creator=self.request.user)

@@ -19,10 +19,9 @@ class PhotoSerializer(serializers.ModelSerializer):
         model = Photo
         fields = "__all__"
 
-
-    #@staticmethod
-    #def validate_status(value):
-     #   done = ReminderStatus.DONE.name
-      #  if value != done:
-       #     raise serializers.ValidationError(f"status can be set to {done} only")
-       # return value
+    # @staticmethod
+    # def validate_status(value):
+    #   done = ReminderStatus.DONE.name
+    #  if value != done:
+    #     raise serializers.ValidationError(f"status can be set to {done} only")
+    # return value

@@ -1,26 +1,26 @@
 from datetime import timedelta
 from os import urandom
+from unittest import skip
 
 from django.test import TestCase
 from rest_framework import status
 
-from apps.reminders.models import Reminder
-from apps.reminders.utils.consts import ReminderStatus
-from project.utils.xdatetime import near
+from apps.blog.models import Photo
 from project.utils.xdatetime import utcnow
 from project.utils.xtest import ApiTestMixin
 from project.utils.xtest import UserTestMixin
 
 
+@skip
 class Test(TestCase, ApiTestMixin, UserTestMixin):
     def setUp(self) -> None:
-        self.endpoint = "/api/v1/reminder/"
+        self.endpoint = "/api/v1/photo/"
         self.user = self.create_user()
         self.token = self.create_auth_token(self.user)
         self.auth_headers = {"HTTP_AUTHORIZATION": f"Token {self.token}"}
 
         self.user2 = self.create_user()
-        self.reminder2 = Reminder(creator=self.user2)
+        self.reminder2 = Photo(creator=self.user2)
         self.reminder2.save()
 
     def test_user_get_anon(self):
@@ -29,7 +29,7 @@ class Test(TestCase, ApiTestMixin, UserTestMixin):
         )
 
     def test_user_normal(self):
-        reminder = Reminder(creator=self.user)
+        reminder = Photo(creator=self.user)
         reminder.save()
 
         self.validate_response(
@@ -78,11 +78,11 @@ class Test(TestCase, ApiTestMixin, UserTestMixin):
 
         self.assertEqual(title, reminder.title)
         self.assertEqual(self.user, reminder.creator)
-        self.assertTrue(near(utcnow(), reminder.created_at, 4))
-        self.assertTrue(ReminderStatus.CREATED.name, reminder.status)
+        # self.assertTrue(near(utcnow(), reminder.created_at, 4))
+        # self.assertTrue(ReminderStatus.CREATED.name, reminder.status)
 
     def test_patch_anon(self):
-        reminder = Reminder(creator=self.user)
+        reminder = Photo(creator=self.user)
         reminder.save()
 
         self.validate_response(
@@ -92,7 +92,7 @@ class Test(TestCase, ApiTestMixin, UserTestMixin):
         )
 
     def test_patch_normal_title(self):
-        rem = Reminder(creator=self.user, title="xxx")
+        rem = Photo(creator=self.user, title="xxx")
         rem.save()
 
         self.validate_response(
@@ -117,7 +117,7 @@ class Test(TestCase, ApiTestMixin, UserTestMixin):
         self.assertEqual(rem.pk, reminder.pk)
 
     def test_patch_normal_readonly(self):
-        reminder = Reminder(creator=self.user)
+        reminder = Photo(creator=self.user)
         reminder.save()
 
         dtm = utcnow() - timedelta(days=1)
@@ -145,14 +145,14 @@ class Test(TestCase, ApiTestMixin, UserTestMixin):
             self.assertEqual(expected_value, getattr(reminder, field), field)
 
     def test_patch_status(self):
-        reminder = Reminder(creator=self.user)
+        reminder = Photo(creator=self.user)
         reminder.save()
 
         self.validate_response(
             f"{self.endpoint}{reminder.pk}/",
             method="patch",
             headers=self.auth_headers,
-            data={"status": ReminderStatus.NOTIFIED.name},
+            # data={"status": ReminderStatus.NOTIFIED.name},
             expected_status_code=status.HTTP_400_BAD_REQUEST,
         )
 
@@ -163,7 +163,7 @@ class Test(TestCase, ApiTestMixin, UserTestMixin):
             f"{self.endpoint}{reminder.pk}/",
             method="patch",
             headers=self.auth_headers,
-            data={"status": ReminderStatus.DONE.name},
+            # data={"status": ReminderStatus.DONE.name},
             expected_status_code=status.HTTP_200_OK,
         )
 
@@ -187,7 +187,7 @@ class Test(TestCase, ApiTestMixin, UserTestMixin):
         )
 
     def test_delete_normal(self):
-        reminder = Reminder(creator=self.user)
+        reminder = Photo(creator=self.user)
         reminder.save()
 
         self.validate_response(

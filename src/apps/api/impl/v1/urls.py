@@ -12,4 +12,3 @@ router.register("photo", PhotoViewSet, "photo")
 urlpatterns = [
     path("", include(router.urls)),
 ]
-
