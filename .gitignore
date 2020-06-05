@@ -16,6 +16,8 @@ Pipfile.lock
 **/venv.bak/
 .static/
 .secrets.*
+# нормально загитигнорить эту дичь
+**/*.prof
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

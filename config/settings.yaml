@@ -1,5 +1,9 @@
 default:
   ALLOWED_HOSTS: []
+  AWS_ACCESS_KEY_ID: ""
+  AWS_LOCATION: ""
+  AWS_S3_REGION_NAME:  "us-east-1"
+  AWS_SECRET_ACCESS_KEY: ""
   CELERY_BEAT_INVITATION: -1
   CELERY_BROKER_URL: ""
   DATABASE_URL: ""
@@ -16,15 +20,31 @@ default:
   SECRET_KEY: ""
   SENTRY_DSN: ""
   SITE_ID: 0
+  PRE_COMPILE: true
 
 development:
+  AWS_LOCATION: "development"
   CELERY_BEAT_INVITATION: 30
   DEBUG: true
   PROFILING: 0
   SECRET_KEY: "1"
   SITE_ID: 0
+  PRE_COMPILE: false
+
+docker:
+  AWS_LOCATION: "docker"
+  CELERY_BEAT_INVITATION: 30
+  CELERY_BROKER_URL: "redis://m-dev-broker"
+  DATABASE_URL: "postgresql://asham:asham@m-dev-db:5432/m-dev"
+  MODE_CACHING: 0
+  MODE_DEBUG: 0
+  MODE_PROFILING: 0
+  SECRET_KEY: "1"
+  SITE_ID: 1
+  PRE_COMPILE: false
 
 heroku:
+  AWS_LOCATION: "heroku"
   ALLOWED_HOSTS:
     - .xgul.herokuapp.com
     - 127.0.0.1
@@ -32,6 +52,7 @@ heroku:
   CELERY_BEAT_INVITATION: 90
   DEBUG: false
   PROFILING: 0
+  PRE_COMPILE: true
 
 test:
   EMAIL_FROM: "test@test.name"
@@ -39,6 +60,7 @@ test:
   PROFILING: 0
   SECRET_KEY: "1"
   SITE_ID: 1
+  PRE_COMPILE: true
 
 travis:
   EMAIL_FROM: "test@test.name"
@@ -46,3 +68,4 @@ travis:
   PROFILING: 0
   SECRET_KEY: "1"
   SITE_ID: 1
+  PRE_COMPILE: true

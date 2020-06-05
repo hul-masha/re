@@ -3,13 +3,23 @@ from django.test import TestCase
 
 from apps.index.models import UserInfo
 from apps.index.views import IndexView
+from project.utils.xtest import ResponseTestMixin
 
 
-class Test(TestCase):
-    def setUp(self) -> None:
-        self.cli = Client()
-
+class Test(TestCase, ResponseTestMixin):
+    # def setUp(self) -> None:
+    #   self.cli = Client()
     def test_get(self):
+        info = UserInfo(name="xxx")
+        info.save()
+        self.validate_response(
+            url="/",
+            expected_view_name="index:index",
+            expected_view=IndexView,
+            expected_template="index/index.html",
+        )
+
+    '''def test_get(self):
         info = UserInfo(name="xxx")
         info.save()
         resp = self.cli.get("/")
@@ -34,4 +44,4 @@ class Test(TestCase):
 
         self.assertEqual(
             resp.resolver_match.func.__name__, IndexView.as_view().__name__
-        )
+        )'''

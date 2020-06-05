@@ -1,0 +1,50 @@
+version: "3.3"
+services:
+  m-dev-web:
+    image: m-dev-web
+    container_name: m-dev-web
+    build: ./
+    ports:
+      - "8000:80"
+    depends_on:
+      - m-dev-db
+      - m-dev-beat
+    environment:
+      ENV_FOR_DYNACONF: docker
+      PORT: 80
+  m-dev-beat:
+    image: m-dev-web
+    container_name: m-dev-beat
+    build: .
+    ports:
+      - "8001:80"
+    depends_on:
+      - m-dev-broker
+      - m-dev-db
+    entrypoint: ["docker/run-beat.sh"]
+    environment:
+      ENV_FOR_DYNACONF: docker
+      PORT: 80
+  m-dev-broker:
+    container_name: m-dev-redis
+    image: redis:latest
+  m-dev-db:
+    container_name: m-dev-db
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_USER: asham
+      POSTGRES_PASSWORD: asham
+      POSTGRES_DB: m-dev
+    ports:
+      - "5433:5432"
+  m-dev-dba:
+    container_name: m-dev-dba
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+    volumes:
+      - db-data:/var/lib/postgresql/data
+volumes:
+  db-data:

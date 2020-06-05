@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.templatetags.static import static
 from django.urls import reverse
+from dynaconf import settings as _settings
 from jinja2 import Environment
 from jinja2 import ModuleLoader
 
@@ -13,9 +14,11 @@ from jinja2 import ModuleLoader
 
 
 def environment(**options):
-    # env = Environment(**options)
+    if not _settings.PRE_COMPILE:
+        env = Environment(**options)
     # раскоментить когда меняю содержимое шаблона или создаю новый
     # Environment(**options).compile_templates("src/project/target.zip")
-    env = Environment(loader=ModuleLoader("src/project/target.zip"))
+    else:
+        env = Environment(loader=ModuleLoader("src/project/target.zip"))
     env.globals.update({"static": static, "url": reverse, "debug": settings.DEBUG})
     return env

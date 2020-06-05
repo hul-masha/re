@@ -17,7 +17,12 @@ SECRET_KEY = _settings.SECRET_KEY
 DEBUG = _settings.DEBUG
 PROFILING = _settings.PROFILING
 
-ALLOWED_HOSTS = _settings.ALLOWED_HOSTS + ["localhost", "127.0.0.1", "0.0.0.0"]
+ALLOWED_HOSTS = _settings.ALLOWED_HOSTS + [
+    "localhost",
+    "127.0.0.1",
+    "0.0.0.0",
+    "192.168.99.101",
+]
 
 INTERNAL_IPS = [
     "127.0.0.1",
@@ -29,12 +34,17 @@ INSTALLED_APPS_DICT = {
     3: "django.contrib.sessions",
     4: "django.contrib.messages",
     7: "django.contrib.sites",
+    8: "storages",
     10: "django.contrib.staticfiles",
-    11: "apps.onboarding.apps.OnboardingConfig",
-    12: "apps.index.apps.IndexConfig",
-    13: "apps.resume",
-    14: "apps.thoughts.apps.ThoughtsConfig",
-    15: "apps.blog.apps.BlogConfig",
+    11: "rest_framework",
+    12: "rest_framework.authtoken",
+    13: "drf_yasg",
+    21: "apps.onboarding.apps.OnboardingConfig",
+    22: "apps.index.apps.IndexConfig",
+    23: "apps.resume",
+    24: "apps.thoughts.apps.ThoughtsConfig",
+    25: "apps.blog.apps.BlogConfig",
+    26: "apps.api.apps.ApiConfig",
 }
 if PROFILING:
     INSTALLED_APPS_DICT[6] = "silk"
@@ -168,3 +178,12 @@ EMAIL_USE_SSL = _settings.EMAIL_USE_SSL
 EMAIL_USE_TLS = _settings.EMAIL_USE_TLS
 
 EMAIL_FROM = _settings.EMAIL_FROM
+
+AWS_ACCESS_KEY_ID = _settings.AWS_ACCESS_KEY_ID
+AWS_DEFAULT_ACL = "public-read"
+AWS_LOCATION = _settings.AWS_LOCATION
+AWS_QUERYSTRING_AUTH = False
+AWS_S3_ADDRESSING_STYLE = "path"
+AWS_S3_REGION_NAME = _settings.AWS_S3_REGION_NAME
+AWS_SECRET_ACCESS_KEY = _settings.AWS_SECRET_ACCESS_KEY
+AWS_STORAGE_BUCKET_NAME = "sssmypage"

@@ -18,3 +18,9 @@ def setup_periodic_tasks(sender, **_kwargs):
         tasks.invite_all_users.s(),
         name=tasks.invite_all_users.__name__,
     )
+
+    """sender.add_periodic_task(  # создали новую задачу
+    60,
+        tasks.sync_c.s(),
+        name=tasks.invite_all_users.__name__,
+    )"""
