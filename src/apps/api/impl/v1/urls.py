@@ -10,5 +10,5 @@ router.register("user", UserViewSet, "user")
 router.register("photo", PhotoViewSet, "photo")
 
 urlpatterns = [
-    path("", include(router.urls)),
+    path("", include(router.urls), name="r"),
 ]

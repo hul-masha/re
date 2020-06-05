@@ -62,7 +62,7 @@ beat:
 		--app periodic.app -B \
 		--config periodic.celeryconfig \
 		--workdir ${HERE}/ \
-		--loglevel=info
+		--loglevel=debug
 
 .PHONY: su
 su:

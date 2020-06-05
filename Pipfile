@@ -31,3 +31,5 @@ boto3 = "*"
 uuid = "*"
 django-storages = "*"
 djangorestframework = "*"
+drf-yasg = {extras = ["validation"],version = "*"}
+future = "*"

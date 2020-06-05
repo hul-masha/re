@@ -38,6 +38,7 @@ INSTALLED_APPS_DICT = {
     10: "django.contrib.staticfiles",
     11: "rest_framework",
     12: "rest_framework.authtoken",
+    13: "drf_yasg",
     21: "apps.onboarding.apps.OnboardingConfig",
     22: "apps.index.apps.IndexConfig",
     23: "apps.resume",
