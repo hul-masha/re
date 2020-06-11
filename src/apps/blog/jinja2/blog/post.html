@@ -9,9 +9,9 @@
 <h1>{{object.title}}</h1>
 <p>{{object.content}}</p>
 {% for photo in object.photos.all() %}
-{#<a href="{{ photo.trumbnail.url }}"></a>#}
-                <img src="{{ photo.thumbnail.url if photo.thumbnail else "" }}">
-
+<a href="{{ photo.thumbnail.url }}">
+                <img src="{{ photo.thumbnail.url if photo.thumbnail else '' }}">
+</a>
         {% endfor %}
 {#{% for photo in object.photos.all() %}
             <a href="{{ photo.original.url }}">

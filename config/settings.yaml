@@ -23,12 +23,13 @@ default:
   PRE_COMPILE: true
 
 development:
+  ALLOWED_HOSTS: ["479570c1eae3.ngrok.io"]
   AWS_LOCATION: "development"
   CELERY_BEAT_INVITATION: 30
   DEBUG: true
   PROFILING: 0
   SECRET_KEY: "1"
-  SITE_ID: 0
+  SITE_ID: 1
   PRE_COMPILE: false
 
 docker:
