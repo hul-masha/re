@@ -7,7 +7,8 @@ from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
 from rest_framework.permissions import AllowAny
 
-from apps.api.views import ObtainAuthToken, TelegramView
+from apps.api.views import ObtainAuthToken
+from apps.api.views import TelegramView
 
 # TODO: move to views
 schema_view = get_schema_view(

@@ -14,6 +14,11 @@ class Post(models.Model):
     content = models.TextField(null=True, blank=True)
     nr_likes = models.IntegerField(null=True, blank=True)
     nr_dislikes = models.IntegerField(null=True, blank=True)
+    sending_tg=models.BooleanField(null=True, blank=True)
+
+    def change_sending_tg(self):
+        self.sending_tg=True
+        self.save()
 
     def get_absolute_url(self):
         return reverse_lazy("blog:post", kwargs={"pk": str(self.pk)})
