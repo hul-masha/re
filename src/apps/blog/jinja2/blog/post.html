@@ -9,12 +9,17 @@
 <h1>{{object.title}}</h1>
 <p>{{object.content}}</p>
 {% for photo in object.photos.all() %}
+<a href="{{ photo.thumbnail.url }}">
+                <img src="{{ photo.thumbnail.url if photo.thumbnail else '' }}">
+</a>
+        {% endfor %}
+{#{% for photo in object.photos.all() %}
             <a href="{{ photo.original.url }}">
                 <img src="{{ photo.original.url }}"
                      alt="{{ photo.pk }}"
                      style="max-width:200px; height: auto">
             </a>
-        {% endfor %}
+        {% endfor %}#}
 <article>
         <h3>Comments</h3>
         {% if not object.comments.count() %}

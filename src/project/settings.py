@@ -186,4 +186,16 @@ AWS_QUERYSTRING_AUTH = False
 AWS_S3_ADDRESSING_STYLE = "path"
 AWS_S3_REGION_NAME = _settings.AWS_S3_REGION_NAME
 AWS_SECRET_ACCESS_KEY = _settings.AWS_SECRET_ACCESS_KEY
-AWS_STORAGE_BUCKET_NAME = "sssmypage"
+AWS_STORAGE_BUCKET_NAME = "ssspagesss"
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.TokenAuthentication",
+    ],
+}
+
+SWAGGER_SETTINGS = {
+    "SECURITY_DEFINITIONS": {
+        "Token": {"type": "apiKey", "name": "Authorization", "in": "header",}
+    },
+}
